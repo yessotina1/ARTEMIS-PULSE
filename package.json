@@ -1,0 +1,6 @@
+{
+  "name": "artemis-pulse",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@12.4.1"
+}

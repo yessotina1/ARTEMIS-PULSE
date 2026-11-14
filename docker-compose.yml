@@ -1,0 +1,3 @@
+# Squelette Docker Compose.
+# PostgreSQL n'est pas déclaré ici : la base est Neon.
+services: {}
