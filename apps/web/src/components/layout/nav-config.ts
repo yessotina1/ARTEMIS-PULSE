@@ -16,6 +16,8 @@ export const PLANNER_NAV: NavItem[] = [
   { href: "/rapports", label: "Rapports", icon: "file" },
   { href: "/documentation", label: "Documentation", icon: "book" },
   { href: "/parametres", label: "Paramètres", icon: "settings" },
+  { href: "/educator", label: "Espace Éducateur", icon: "book" },
+  { href: "/exploration", label: "Espace Explorateur", icon: "compass" },
 ];
 
 export const PUBLIC_NAV: NavItem[] = [

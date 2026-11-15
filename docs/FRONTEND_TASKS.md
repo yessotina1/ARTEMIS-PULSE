@@ -1,7 +1,7 @@
 # ARTEMIS PULSE — Front-end (apps/web)
 
 Suivi de la construction du front-end. Une tâche = un commit (`feat(web): <tâche>`).
-Dernière mise à jour : 15 novembre 2026 — tâche 29 livrée.
+Dernière mise à jour : 16 novembre 2026 — tâches 1 à 29 livrées (interfaces de démonstration).
 
 ## Tâches
 
@@ -20,6 +20,19 @@ Dernière mise à jour : 15 novembre 2026 — tâche 29 livrée.
 - [x] 13. Comparateur de 2 à 4 scénarios avec courbes recharts et score pondéré.
 - [x] 14. Détail d'un scénario sauvegardé, Rapports, Paramètres.
 - [x] 15. Passe finale : accessibilité, responsive, états, README apps/web.
+- [x] 16. Tableau de bord Éducateur : cohortes, activités récentes, résultats anonymisés de démonstration.
+- [x] 17. Gestion des classes : création locale de cohortes et codes d'accès sans comptes apprenants.
+- [x] 18. Bibliothèque de ressources : séances, atlas, quiz et missions de démonstration.
+- [x] 19. Éditeur de séance guidée avec consignes, notes et aperçu apprenant local.
+- [x] 20. Concepteur de quiz : questions, choix éditables, réponse correcte et aperçu local.
+- [x] 21. Résultats par pseudonyme, filtre par cohorte et export JSON anonymisé de démonstration.
+- [x] 22. Atlas pédagogique et fiche de site avec source, version, qualité, horodatage et limites.
+- [x] 23. Espace Explorateur avec navigation dédiée, missions de découverte et atlas.
+- [x] 24. Parcours apprenant : sélection de missions par objectif et niveau.
+- [x] 25. Session de quiz : réponses, rétroaction pédagogique et bilan local.
+- [x] 26. Progression apprenant illustrative et non persistante.
+- [x] 27. Sélection cartographique de sites et fiches pédagogiques fondées sur les types Site.
+- [x] 28. Navigation responsive et états de chargement, erreur et vide des espaces ajoutés.
 - [x] 29. Accueil avec Lune 3D (three / R3F / drei) : hero immersif, récit « Trois questions », vignettes « Trois espaces », repli statique.
 
 ## Arbitrage des maquettes
@@ -39,6 +52,15 @@ Dernière mise à jour : 15 novembre 2026 — tâche 29 livrée.
 - **API** : contrat typé, client fetch avec erreurs `{code, message, details, requestId}` et timeout, mocks réalistes (8 sites du pôle Sud, 6 scénarios, 7 runs dont QUEUED/RUNNING/SUCCEEDED/FAILED, séries, fenêtres, comparaisons, rapports), hooks React Query dont polling du run toutes les 2 s.
 - **Écrans** : accueil public, fiche publique de site, démonstration invitée, connexion / inscription (3 profils) / mot de passe oublié, tableau de bord, catalogue + fiche, explorateur (Cesium + repli polaire), assistant 4 étapes, espace d'analyse (Soleil, Terre, horizon, scène), chronologie avec lecture/pause et marqueurs, comparateur 2–4 scénarios (tableau, courbes alignées, score pondérable, contraintes critiques séparées), mes scénarios + détail, rapports, paramètres, documentation.
 - **Qualité** : `npm run lint` et `npm run build` passent après chaque tâche. Textes ≥ 12 px (y compris les libellés SVG). États chargement / vide / erreur / données partielles sur chaque écran de données. Responsive desktop → mobile avec menu latéral escamotable.
+
+## Lot 2 — interface livrée et limites
+
+- Les tâches 16 à 28 fournissent des interfaces de démonstration pour les espaces Éducateur, Explorateur et apprenant.
+- Les cohortes, activités, quiz et résultats viennent de fixtures locales ; aucune mutation d'éducation n'est reliée à l'API backend.
+- Les apprenants sont représentés par des pseudonymes ; authentification élève, sauvegarde de progression et données personnelles ne sont pas implémentées.
+- L'export des résultats est un JSON local anonymisé, sans export CSV ni transmission serveur.
+- Les parcours pédagogiques sont des écrans de démonstration et ne constituent pas un moteur scientifique ou un simulateur backend.
+- Vérifications exécutées pour cette branche : `npm run lint` et `npm run build`.
 
 ## Ce qui est bloqué / non vérifié
 
