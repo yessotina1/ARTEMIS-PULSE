@@ -1,7 +1,7 @@
 # ARTEMIS PULSE — Front-end (apps/web)
 
 Suivi de la construction du front-end. Une tâche = un commit (`feat(web): <tâche>`).
-Dernière mise à jour : 15 novembre 2026 — 15/15 tâches livrées.
+Dernière mise à jour : 15 novembre 2026 — tâche 29 livrée.
 
 ## Tâches
 
@@ -20,6 +20,7 @@ Dernière mise à jour : 15 novembre 2026 — 15/15 tâches livrées.
 - [x] 13. Comparateur de 2 à 4 scénarios avec courbes recharts et score pondéré.
 - [x] 14. Détail d'un scénario sauvegardé, Rapports, Paramètres.
 - [x] 15. Passe finale : accessibilité, responsive, états, README apps/web.
+- [x] 29. Accueil avec Lune 3D (three / R3F / drei) : hero immersif, récit « Trois questions », vignettes « Trois espaces », repli statique.
 
 ## Arbitrage des maquettes
 
@@ -42,6 +43,7 @@ Dernière mise à jour : 15 novembre 2026 — 15/15 tâches livrées.
 ## Ce qui est bloqué / non vérifié
 
 - **Rendu 3D Cesium** : non vérifié visuellement (WebGL indisponible dans l'environnement de build). Repli polaire opérationnel derrière la même interface ; voir `docs/FRONTEND_BLOCKERS.md`.
+- **Rendu 3D Lune (accueil, tâche 29)** : non vérifié visuellement dans cet environnement (WebGL indisponible). `npm run lint` et `npm run build` passent ; repli `MoonFallback` et poster de chargement couvrent l'absence de WebGL / textures. Textures `/public/textures/moon-*.webp` à fournir par Tompkins.
 - **Authentification** : locale (`localStorage`), sans API ni sécurité réelle.
 - **Téléchargement de rapports** : export JSON local de démonstration, faute de route API.
 - Aucun test end-to-end ni audit d'accessibilité automatisé n'a été exécuté (hors périmètre demandé).
