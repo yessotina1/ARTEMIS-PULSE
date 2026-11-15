@@ -15,6 +15,7 @@ import { cn } from "@/lib/cn";
 import { Badge, Button, Icon, Timestamp } from "@/components/ui";
 import { formatAxisTick, formatElevation, formatUtc } from "@/lib/format";
 import type { SeriesPoint, TimeSeries, VisibilityWindow } from "@/types";
+import { TimelineTransitions } from "./timeline-transitions";
 
 const BODY_COLORS = {
   FULL: "bg-visibility-full",
@@ -102,6 +103,18 @@ export function ScenarioTimeline({
           <Timestamp value={point.atUtc} />
           <Button
             size="sm"
+            variant="ghost"
+            onClick={() => {
+              setPlaying(false);
+              onCursorChange(Math.max(0, safeIndex - 1));
+            }}
+            aria-label="Pas de temps précédent"
+            disabled={safeIndex === 0}
+          >
+            <Icon name="chevron-left" size={13} />
+          </Button>
+          <Button
+            size="sm"
             variant="secondary"
             onClick={() => {
               if (safeIndex >= lastIndex) onCursorChange(0);
@@ -111,6 +124,18 @@ export function ScenarioTimeline({
           >
             <Icon name={playing ? "pause" : "play"} size={13} />
             {playing ? "Pause" : "Lecture"}
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              setPlaying(false);
+              onCursorChange(Math.min(lastIndex, safeIndex + 1));
+            }}
+            aria-label="Pas de temps suivant"
+            disabled={safeIndex >= lastIndex}
+          >
+            <Icon name="chevron-right" size={13} />
           </Button>
         </div>
       </header>
@@ -227,42 +252,7 @@ export function ScenarioTimeline({
           <WindowBand label="Terre" windows={earthWindows} offsetPercent={offsetPercent} />
         </div>
 
-        <div className="mt-sm border-t border-outline-variant pt-sm">
-          <p className="mb-xs font-mono text-label-sm uppercase text-on-surface-variant">
-            Marqueurs de transition
-          </p>
-          <ul className="flex flex-wrap gap-xs">
-            {windows
-              .filter((window) => window.transition !== "PARTIAL")
-              .slice(0, 8)
-              .map((window) => (
-                <li key={`marker-${window.id}`}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const index = series.points.findIndex(
-                        (sample) => sample.atUtc === window.startsAtUtc,
-                      );
-                      if (index >= 0) onCursorChange(index);
-                    }}
-                    className="flex items-center gap-xs rounded-sm border border-outline-variant px-xs py-0.5 font-mono text-label-sm text-on-surface-variant hover:border-primary/50 hover:text-on-surface"
-                    title={`${window.body === "SUN" ? "Soleil" : "Terre"} — ${window.transition === "ENTER" ? "entrée en visibilité" : "sortie de visibilité"}`}
-                  >
-                    <span
-                      aria-hidden
-                      className={cn(
-                        "size-1.5 rounded-full",
-                        window.transition === "ENTER" ? "bg-visibility-full" : "bg-visibility-occulted",
-                      )}
-                    />
-                    {window.body === "SUN" ? "SOL" : "TERRE"}{" "}
-                    {window.transition === "ENTER" ? "ENTRÉE" : "SORTIE"} ·{" "}
-                    {formatUtc(window.startsAtUtc).slice(11, 16)}
-                  </button>
-                </li>
-              ))}
-          </ul>
-        </div>
+        <TimelineTransitions windows={windows} points={series.points} onGoTo={onCursorChange} className="mt-sm" />
 
         <div className="mt-sm flex flex-wrap items-center gap-md border-t border-outline-variant pt-sm font-mono text-label-sm text-on-surface-variant">
           <span className="flex items-center gap-xs"><span className="size-2 rounded-sm bg-visibility-full" /> FULL</span>
@@ -306,6 +296,12 @@ function WindowBand({
                 {formatUtc(window.startsAtUtc)} à {formatUtc(window.endsAtUtc)}, visibilité{" "}
                 {window.visibility}
               </span>
+              {window.transition !== "PARTIAL" ? (
+                <span
+                  aria-hidden
+                  className="absolute inset-y-0 left-0 w-0.5 bg-container-lowest"
+                />
+              ) : null}
             </span>
           );
         })}
