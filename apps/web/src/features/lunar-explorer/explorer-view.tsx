@@ -19,7 +19,7 @@ import {
 } from "@/components/ui";
 import { PolarMap } from "@/components/lunar/polar-map";
 import { useSites } from "@/hooks";
-import { formatPercent } from "@/lib/format";
+import { formatDegrees, formatPercent } from "@/lib/format";
 
 const CesiumGlobe = dynamic(() => import("./cesium-globe"), {
   ssr: false,
@@ -34,7 +34,7 @@ export function ExplorerView() {
   const sitesQuery = useSites();
   const sites = useMemo(() => sitesQuery.data ?? [], [sitesQuery.data]);
   const southPoleSites = useMemo(
-    () => sites.filter((site) => site.coordinates.latitudeDeg < -60),
+    () => sites.filter((site) => (site.coordinates.latitudeDeg ?? 0) < -60),
     [sites],
   );
 
@@ -79,7 +79,7 @@ export function ExplorerView() {
                   >
                     <span className="block text-body-md text-on-surface">{site.name}</span>
                     <span className="block font-mono text-label-sm text-on-surface-variant">
-                      {site.coordinates.latitudeDeg.toFixed(2)}° · {site.coordinates.longitudeDeg.toFixed(2)}°
+                      {formatDegrees(site.coordinates.latitudeDeg, 2)}° · {formatDegrees(site.coordinates.longitudeDeg, 2)}°
                     </span>
                     <span className="mt-1 flex flex-wrap gap-1">
                       <QualityBadge value={site.quality} />
@@ -161,8 +161,8 @@ export function ExplorerView() {
           <CardBody className="space-y-2">
             <p className="font-mono text-label-sm text-on-surface-variant">{selected.designation}</p>
             <div className="grid grid-cols-2 gap-2">
-              <Metric label="Latitude" value={selected.coordinates.latitudeDeg.toFixed(3)} unit="°" />
-              <Metric label="Longitude" value={selected.coordinates.longitudeDeg.toFixed(3)} unit="°" />
+              <Metric label="Latitude" value={formatDegrees(selected.coordinates.latitudeDeg, 3)} unit="°" />
+              <Metric label="Longitude" value={formatDegrees(selected.coordinates.longitudeDeg, 3)} unit="°" />
               <Metric label="Altitude" value={selected.coordinates.altitudeM} unit="m" />
               <Metric
                 label="Illumination"

@@ -15,7 +15,7 @@ import {
   Timestamp,
   VisibilityBadge,
 } from "@/components/ui";
-import { formatDuration, formatElevation } from "@/lib/format";
+import { formatDegrees, formatDuration, formatElevation } from "@/lib/format";
 import type { Run, Scenario, SiteDetail, TimeSeries, VisibilityWindow } from "@/types";
 
 // Route bloquante : données de démonstration chargées côté serveur.
@@ -76,8 +76,8 @@ export default async function DemoPage() {
           }
         />
         <CardBody className="grid gap-3 md:grid-cols-4">
-          <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
-          <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
+          <Metric label="Latitude" value={formatDegrees(site.coordinates.latitudeDeg, 4)} unit="°" />
+          <Metric label="Longitude" value={formatDegrees(site.coordinates.longitudeDeg, 4)} unit="°" />
           <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
           <Metric label="Pas de calcul" value={scenario.window.steps} hint={`${scenario.window.stepSeconds / 60} min`} />
         </CardBody>

@@ -29,20 +29,20 @@ export interface ListResponse<T> {
 }
 
 export interface BodyGeometry {
-  azimuthDeg: number;
-  elevationDeg: number;
+  azimuthDeg: number | null;
+  elevationDeg: number | null;
 }
 
 export type Body = "SUN" | "EARTH";
 
 /** État de référence d'un site (affichage instantané, calculé côté API). */
 export interface ReferenceState {
-  atUtc: string;
+  atUtc: string | null;
   sun: BodyGeometry;
   earth: BodyGeometry;
   sunVisibility: import("./enums").VisibilityClass;
   earthVisibility: import("./enums").VisibilityClass;
-  solarFluxWm2: number;
+  solarFluxWm2: number | null;
   quality: QualityLevel;
   source: DataSource;
 }

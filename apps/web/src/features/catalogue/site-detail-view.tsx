@@ -23,7 +23,7 @@ import {
 } from "@/components/ui";
 import { HorizonProfileChart } from "@/components/lunar/horizon-profile";
 import { useSite } from "@/hooks";
-import { formatElevation, formatPercent } from "@/lib/format";
+import { formatDegrees, formatElevation, formatPercent } from "@/lib/format";
 
 export function SiteDetailView({ siteId }: { siteId: string }) {
   const siteQuery = useSite(siteId);
@@ -121,8 +121,8 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
               icon={<Icon name="pin" size={16} />}
             />
             <CardBody className="grid grid-cols-2 gap-3">
-              <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
-              <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
+              <Metric label="Latitude" value={formatDegrees(site.coordinates.latitudeDeg, 4)} unit="°" />
+              <Metric label="Longitude" value={formatDegrees(site.coordinates.longitudeDeg, 4)} unit="°" />
               <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
               <Metric
                 label="Nuit continue max."
@@ -149,7 +149,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                   <VisibilityBadge value={site.referenceState.sunVisibility} variant="compact" />
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  <Metric label="Azimut" value={site.referenceState.sun.azimuthDeg.toFixed(2)} unit="°" />
+                  <Metric label="Azimut" value={formatDegrees(site.referenceState.sun.azimuthDeg, 2)} unit="°" />
                   <Metric label="Élévation" value={formatElevation(site.referenceState.sun.elevationDeg)} />
                   <Metric label="Flux" value={site.referenceState.solarFluxWm2} unit="W/m²" />
                 </div>
@@ -160,7 +160,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                   <VisibilityBadge value={site.referenceState.earthVisibility} variant="compact" />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Metric label="Azimut" value={site.referenceState.earth.azimuthDeg.toFixed(2)} unit="°" />
+                  <Metric label="Azimut" value={formatDegrees(site.referenceState.earth.azimuthDeg, 2)} unit="°" />
                   <Metric label="Élévation" value={formatElevation(site.referenceState.earth.elevationDeg)} />
                 </div>
               </div>
@@ -226,17 +226,21 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                 <HorizonProfileChart
                   samples={site.horizonProfile.samples}
                   markers={[
-                    {
-                      azimuthDeg: site.referenceState.sun.azimuthDeg,
-                      label: `Soleil ${formatElevation(site.referenceState.sun.elevationDeg)}`,
-                      tone: "sun",
-                    },
-                    {
-                      azimuthDeg: site.referenceState.earth.azimuthDeg,
-                      label: `Terre ${formatElevation(site.referenceState.earth.elevationDeg)}`,
-                      tone: "earth",
-                    },
-                  ]}
+                    site.referenceState.sun.azimuthDeg === null
+                      ? null
+                      : {
+                          azimuthDeg: site.referenceState.sun.azimuthDeg,
+                          label: `Soleil ${formatElevation(site.referenceState.sun.elevationDeg)}`,
+                          tone: "sun" as const,
+                        },
+                    site.referenceState.earth.azimuthDeg === null
+                      ? null
+                      : {
+                          azimuthDeg: site.referenceState.earth.azimuthDeg,
+                          label: `Terre ${formatElevation(site.referenceState.earth.elevationDeg)}`,
+                          tone: "earth" as const,
+                        },
+                  ].filter((marker) => marker !== null)}
                 />
                 <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
                   Azimut de l&apos;observateur (0° à 360°) · graticule horizontal calé sur l&apos;ellipsoïde.

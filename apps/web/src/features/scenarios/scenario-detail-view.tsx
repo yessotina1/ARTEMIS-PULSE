@@ -18,7 +18,7 @@ import {
   Timestamp,
 } from "@/components/ui";
 import { useCreateRun, useRun, useScenario, useScenarioRuns, useSite } from "@/hooks";
-import { formatDuration, formatElevation } from "@/lib/format";
+import { formatDegrees, formatDuration, formatElevation } from "@/lib/format";
 
 export function ScenarioDetailView({ scenarioId }: { scenarioId: string }) {
   const scenarioQuery = useScenario(scenarioId);
@@ -187,8 +187,8 @@ export function ScenarioDetailView({ scenarioId }: { scenarioId: string }) {
             actions={<QualityBadge value={site.quality} />}
           />
           <CardBody className="grid gap-3 sm:grid-cols-4">
-            <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
-            <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
+            <Metric label="Latitude" value={formatDegrees(site.coordinates.latitudeDeg, 4)} unit="°" />
+            <Metric label="Longitude" value={formatDegrees(site.coordinates.longitudeDeg, 4)} unit="°" />
             <Metric
               label="Élévation solaire de référence"
               value={formatElevation(site.referenceState.sun.elevationDeg)}

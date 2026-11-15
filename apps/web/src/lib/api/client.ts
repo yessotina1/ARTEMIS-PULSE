@@ -19,6 +19,17 @@ export class ApiClientError extends Error {
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
+function authHeader(): Record<string, string> {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = window.localStorage.getItem("artemis-pulse.session");
+    const token = raw ? (JSON.parse(raw) as { token?: string }).token : undefined;
+    return token && token !== "demo-token" ? { Authorization: `Token ${token}` } : {};
+  } catch {
+    return {};
+  }
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -30,6 +41,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       headers: {
         Accept: "application/json",
         ...(init?.body ? { "Content-Type": "application/json" } : {}),
+        ...authHeader(),
         ...init?.headers,
       },
     });

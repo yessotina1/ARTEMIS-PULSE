@@ -24,6 +24,8 @@ class LunarSite(TimeStampedModel):
     longitude_deg = models.DecimalField(max_digits=9, decimal_places=5, null=True, blank=True)
     reference_frame = models.CharField(max_length=64, default="unassigned")
     elevation_m = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    description = models.TextField(blank=True)
+    characteristics = models.JSONField(default=dict, blank=True)
     notes = models.TextField(blank=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

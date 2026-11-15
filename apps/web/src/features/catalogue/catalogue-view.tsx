@@ -21,7 +21,7 @@ import {
 } from "@/components/ui";
 import { PolarMap } from "@/components/lunar/polar-map";
 import { useSites } from "@/hooks";
-import { formatPercent } from "@/lib/format";
+import { formatDegrees, formatPercent } from "@/lib/format";
 import type { SiteCategory, SiteSummary } from "@/types";
 
 const CATEGORY_OPTIONS = [
@@ -74,7 +74,7 @@ export function CatalogueView() {
   }, [sites, search, category, dem]);
 
   const selected = sites.find((site) => site.id === selectedId) ?? filtered[0] ?? null;
-  const southPole = sites.filter((site) => site.coordinates.latitudeDeg < -60);
+  const southPole = sites.filter((site) => (site.coordinates.latitudeDeg ?? 0) < -60);
 
   if (sitesQuery.isPending) return <LoadingState label="Chargement du catalogue…" rows={6} />;
   if (sitesQuery.isError) {
@@ -256,8 +256,8 @@ function SiteRow({
         </div>
       </td>
       <td className="px-3 py-1 font-mono text-label-md tabular text-on-surface-variant">
-        {site.coordinates.latitudeDeg.toFixed(4)}°<br />
-        {site.coordinates.longitudeDeg.toFixed(4)}°
+        {formatDegrees(site.coordinates.latitudeDeg, 4)}°<br />
+        {formatDegrees(site.coordinates.longitudeDeg, 4)}°
         <br />
         <span className="text-label-sm">Alt. {site.coordinates.altitudeM} m</span>
       </td>
@@ -308,8 +308,8 @@ function SiteInspection({ site }: { site: SiteSummary }) {
           {site.designation} · classe {CATEGORY_LABELS[site.category]}
         </p>
         <div className="grid grid-cols-2 gap-2">
-          <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
-          <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
+          <Metric label="Latitude" value={formatDegrees(site.coordinates.latitudeDeg, 4)} unit="°" />
+          <Metric label="Longitude" value={formatDegrees(site.coordinates.longitudeDeg, 4)} unit="°" />
           <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
           <Metric
             label="Illumination moyenne"

@@ -83,6 +83,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
         </text>
 
         {sites.map((site) => {
+          if (site.coordinates.latitudeDeg === null || site.coordinates.longitudeDeg === null) return null;
           const point = project(site.coordinates.latitudeDeg, site.coordinates.longitudeDeg);
           const selected = site.id === selectedId;
           const unavailable = site.dem.status === "NONE";

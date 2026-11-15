@@ -6,6 +6,14 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
+REPO_ROOT = BASE_DIR.parent.parent
+
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(REPO_ROOT / ".env")
+except ImportError:
+    pass
 
 
 def env(name: str, default: str | None = None) -> str | None:
@@ -40,7 +48,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.gis",
+    "rest_framework.authtoken",
+    # django.contrib.gis stays disabled until the GDAL library is installed.
+    # Lunar positions are decimal fields with an explicit frame, not geometries.
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
@@ -110,6 +120,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -122,15 +133,28 @@ REST_FRAMEWORK = {
 SPECTACULAR_SETTINGS = {
     "TITLE": "ARTEMIS PULSE API",
     "DESCRIPTION": (
-        "API REST pour l'exploration, l'analyse et la simulation de missions lunaires. "
-        "Les calculs scientifiques ne sont pas encore implémentés et aucun résultat "
-        "n'est synthétisé."
+        "API de gestion des comptes, du catalogue de sites lunaires et des "
+        "métadonnées de jeux de données. Les coordonnées lunaires ne sont pas "
+        "interprétées comme du WGS84."
     ),
     "VERSION": "0.1.0",
+    "TAGS": [
+        {"name": "accounts", "description": "Comptes, profils, rôles et session."},
+        {"name": "catalog", "description": "Catalogue des sites lunaires."},
+        {"name": "datasets", "description": "Métadonnées des jeux de données."},
+    ],
 }
 
 CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", ["http://localhost:3000"])
+CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", ["http://localhost:3000"])
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SAMESITE = "Lax"
+
+EMAIL_BACKEND = env("EMAIL_BACKEND", "django.core.mail.backends.console.EmailBackend")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", "noreply@artemis-pulse.local")
+FRONTEND_URL = env("FRONTEND_URL", "http://localhost:3000")
 
 REDIS_URL = env("REDIS_URL", "redis://localhost:6379/0")
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", REDIS_URL)

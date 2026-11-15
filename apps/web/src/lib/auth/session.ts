@@ -1,6 +1,7 @@
 "use client";
 
-import type { AuthSession, LoginInput, SignupInput } from "@/types";
+import { API_BASE_URL, USE_MOCKS } from "@/lib/env";
+import type { AuthSession, AuthUser, LoginInput, SignupInput } from "@/types";
 
 /**
  * Authentification de démonstration : aucune requête réseau, session en
@@ -72,7 +73,26 @@ function wait(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+async function postAuth(path: string, body: unknown): Promise<AuthSession> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const payload = (await response.json().catch(() => null)) as
+    | (AuthSession & { message?: string })
+    | { message?: string }
+    | null;
+  if (!response.ok || !payload || !("token" in payload) || !("user" in payload)) {
+    throw new Error(payload && "message" in payload && payload.message ? payload.message : "Authentification refusée.");
+  }
+  const session: AuthSession = { user: payload.user as AuthUser, token: payload.token };
+  writeSession(session);
+  return session;
+}
+
 export async function signIn(input: LoginInput): Promise<AuthSession> {
+  if (!USE_MOCKS) return postAuth("/auth/login", input);
   await wait(600);
   if (!input.email.includes("@")) {
     throw new Error("Adresse e-mail invalide.");
@@ -96,6 +116,7 @@ export async function signIn(input: LoginInput): Promise<AuthSession> {
 }
 
 export async function signUp(input: SignupInput): Promise<AuthSession> {
+  if (!USE_MOCKS) return postAuth("/auth/register", input);
   await wait(700);
   if (!input.email.includes("@")) throw new Error("Adresse e-mail invalide.");
   if (input.fullName.trim().length < 2) throw new Error("Indiquez votre nom complet.");
@@ -116,7 +137,27 @@ export async function signUp(input: SignupInput): Promise<AuthSession> {
   return session;
 }
 
+export async function signOut(): Promise<void> {
+  const session = readSession();
+  if (!USE_MOCKS && session?.token && session.token !== "demo-token") {
+    await fetch(`${API_BASE_URL}/auth/logout`, {
+      method: "POST",
+      headers: { Authorization: `Token ${session.token}` },
+    }).catch(() => undefined);
+  }
+  clearSession();
+}
+
 export async function requestPasswordReset(email: string): Promise<void> {
+  if (!USE_MOCKS) {
+    const response = await fetch(`${API_BASE_URL}/auth/password-reset`, {
+      method: "POST",
+      headers: { Accept: "application/json", "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+    if (!response.ok) throw new Error("Envoi impossible.");
+    return;
+  }
   await wait(600);
   if (!email.includes("@")) throw new Error("Adresse e-mail invalide.");
 }

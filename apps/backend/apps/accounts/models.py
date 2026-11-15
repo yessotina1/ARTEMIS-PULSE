@@ -8,12 +8,11 @@ from common.models import TimeStampedModel
 
 class User(AbstractUser):
     class Role(models.TextChoices):
-        ADMIN = "admin", "Administrateur"
-        SCIENTIST = "scientist", "Scientifique"
-        EDUCATOR = "educator", "Enseignant"
-        STUDENT = "student", "Étudiant"
+        MISSION_PLANNER = "mission_planner", "Mission Planner"
+        EDUCATOR = "educator", "Educator"
         PUBLIC = "public", "Public"
 
+    email = models.EmailField("adresse électronique", unique=True)
     role = models.CharField(max_length=32, choices=Role.choices, default=Role.PUBLIC)
 
     class Meta:

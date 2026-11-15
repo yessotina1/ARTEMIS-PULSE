@@ -72,12 +72,18 @@ export default function CesiumGlobe({
       viewer.scene.globe.showGroundAtmosphere = false;
 
       for (const site of sitesRef.current) {
+        if (
+          site.coordinates.longitudeDeg === null ||
+          site.coordinates.latitudeDeg === null
+        ) {
+          continue;
+        }
         viewer.entities.add({
           id: site.id,
           position: Cesium.Cartesian3.fromDegrees(
             site.coordinates.longitudeDeg,
             site.coordinates.latitudeDeg,
-            site.coordinates.altitudeM,
+            site.coordinates.altitudeM ?? 0,
             moon,
           ),
           point: {

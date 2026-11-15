@@ -16,7 +16,7 @@ import {
   Select,
 } from "@/components/ui";
 import {
-  clearSession,
+  signOut,
   getServerSessionSnapshot,
   getSessionSnapshot,
   subscribeSession,
@@ -58,7 +58,7 @@ export function SettingsView() {
   }
 
   function logout() {
-    clearSession();
+    void signOut();
     router.push("/");
   }
 

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui";
 import { useCreateScenario, useSites } from "@/hooks";
 import { countSteps, fromUtcIso, toUtcIso } from "@/lib/datetime-input";
-import { formatPercent } from "@/lib/format";
+import { formatDegrees, formatPercent } from "@/lib/format";
 import type { UserProfileKind } from "@/types";
 import { cn } from "@/lib/cn";
 import {
@@ -252,8 +252,8 @@ export function ScenarioWizard({
                             <QualityBadge value={site.quality} />
                           </span>
                           <span className="block font-mono text-label-sm text-on-surface-variant">
-                            {site.coordinates.latitudeDeg.toFixed(3)}° ·{" "}
-                            {site.coordinates.longitudeDeg.toFixed(3)}° · {site.coordinates.altitudeM} m
+                            {formatDegrees(site.coordinates.latitudeDeg, 3)}° ·{" "}
+                            {formatDegrees(site.coordinates.longitudeDeg, 3)}° · {site.coordinates.altitudeM} m
                           </span>
                           <span className="block text-body-sm text-on-surface-variant">
                             DEM{" "}
@@ -460,8 +460,8 @@ export function ScenarioWizard({
               <>
                 <QualityBadge value={selectedSite.quality} />
                 <div className="grid grid-cols-2 gap-2">
-                  <Metric label="Latitude" value={selectedSite.coordinates.latitudeDeg.toFixed(3)} unit="°" />
-                  <Metric label="Longitude" value={selectedSite.coordinates.longitudeDeg.toFixed(3)} unit="°" />
+                  <Metric label="Latitude" value={formatDegrees(selectedSite.coordinates.latitudeDeg, 3)} unit="°" />
+                  <Metric label="Longitude" value={formatDegrees(selectedSite.coordinates.longitudeDeg, 3)} unit="°" />
                   <Metric label="Altitude" value={selectedSite.coordinates.altitudeM} unit="m" />
                   <Metric
                     label="Illumination"

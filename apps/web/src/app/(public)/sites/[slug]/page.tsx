@@ -16,7 +16,7 @@ import {
   Timestamp,
   VisibilityBadge,
 } from "@/components/ui";
-import { formatElevation } from "@/lib/format";
+import { formatDegrees, formatElevation } from "@/lib/format";
 import type { SiteDetail } from "@/types";
 
 // Route bloquante : données de démonstration chargées côté serveur.
@@ -111,8 +111,8 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
               icon={<Icon name="pin" size={16} />}
             />
             <CardBody className="grid gap-3 sm:grid-cols-2">
-              <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" hint="Négative = hémisphère sud" />
-              <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
+              <Metric label="Latitude" value={formatDegrees(site.coordinates.latitudeDeg, 4)} unit="°" hint="Négative = hémisphère sud" />
+              <Metric label="Longitude" value={formatDegrees(site.coordinates.longitudeDeg, 4)} unit="°" />
               <Metric label="Altitude MOLA" value={site.coordinates.altitudeM} unit="m" />
               <Metric
                 label="Couverture DEM"
@@ -148,7 +148,7 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
                   <VisibilityBadge value={site.referenceState.sunVisibility} variant="compact" />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Metric label="Azimut" value={site.referenceState.sun.azimuthDeg.toFixed(2)} unit="°" />
+                  <Metric label="Azimut" value={formatDegrees(site.referenceState.sun.azimuthDeg, 2)} unit="°" />
                   <Metric
                     label="Élévation"
                     value={formatElevation(site.referenceState.sun.elevationDeg)}
@@ -167,7 +167,7 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
                   <VisibilityBadge value={site.referenceState.earthVisibility} variant="compact" />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Metric label="Azimut" value={site.referenceState.earth.azimuthDeg.toFixed(2)} unit="°" />
+                  <Metric label="Azimut" value={formatDegrees(site.referenceState.earth.azimuthDeg, 2)} unit="°" />
                   <Metric
                     label="Élévation"
                     value={formatElevation(site.referenceState.earth.elevationDeg)}

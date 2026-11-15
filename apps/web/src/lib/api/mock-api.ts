@@ -81,7 +81,7 @@ export const mockApi: ArtemisApi = {
       await delay();
       let items = [...SITES];
       if (query?.region === "SOUTH_POLE") {
-        items = items.filter((site) => site.coordinates.latitudeDeg < -60);
+        items = items.filter((site) => (site.coordinates.latitudeDeg ?? 0) < -60);
       }
       if (query?.category && query.category !== "ALL") {
         items = items.filter((site) => site.category === query.category);

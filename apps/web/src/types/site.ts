@@ -5,9 +5,9 @@ export type SiteCategory = "RIDGE" | "PLATEAU" | "CRATER_RIM" | "PSR" | "HISTORI
 export type DemCoverageStatus = "FULL" | "PARTIAL" | "NONE";
 
 export interface LunarCoordinates {
-  latitudeDeg: number;
-  longitudeDeg: number;
-  altitudeM: number;
+  latitudeDeg: number | null;
+  longitudeDeg: number | null;
+  altitudeM: number | null;
 }
 
 /** Couverture du modèle numérique de terrain — avertissement si absente/partielle. */
@@ -43,7 +43,7 @@ export interface SiteSummary {
   illuminationPercent: number | null;
   maxContinuousDarknessHours: number | null;
   tags: string[];
-  referenceEphemerisUtc: string;
+  referenceEphemerisUtc: string | null;
 }
 
 export interface SiteDetail extends SiteSummary {

@@ -17,7 +17,7 @@ import {
   Timestamp,
 } from "@/components/ui";
 import { useRuns, useScenarios, useSites } from "@/hooks";
-import { formatDuration, formatPercent } from "@/lib/format";
+import { formatDegrees, formatDuration, formatPercent } from "@/lib/format";
 import type { Run, Scenario, SiteSummary } from "@/types";
 
 function nearestPriority(runs: Run[]): Run | null {
@@ -46,7 +46,7 @@ function SiteTile({ site }: { site: SiteSummary }) {
         <QualityBadge value={site.quality} />
       </div>
       <p className="font-mono text-label-sm text-on-surface-variant">
-        {site.coordinates.latitudeDeg.toFixed(2)}° · {site.coordinates.longitudeDeg.toFixed(2)}° ·{" "}
+        {formatDegrees(site.coordinates.latitudeDeg, 2)}° · {formatDegrees(site.coordinates.longitudeDeg, 2)}° ·{" "}
         {site.coordinates.altitudeM} m
       </p>
     </Link>

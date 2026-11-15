@@ -23,7 +23,7 @@ import {
 import { HorizonProfileChart } from "@/components/lunar/horizon-profile";
 import { SiteScene } from "@/components/lunar/site-scene";
 import { useRun, useRunSeries, useScenario, useSite, useVisibilityWindows } from "@/hooks";
-import { formatDuration, formatElevation, formatUtc } from "@/lib/format";
+import { formatDegrees, formatDuration, formatElevation, formatUtc } from "@/lib/format";
 import type { Run, TimeSeries, VisibilityWindow } from "@/types";
 import { ScenarioTimeline } from "./timeline";
 
@@ -188,7 +188,7 @@ export function AnalysisView({ runId }: { runId: string }) {
             </h2>
             <p className="mt-1 font-mono text-label-md text-on-surface-variant">
               {site
-                ? `${site.name} · ${site.designation} · lat ${site.coordinates.latitudeDeg.toFixed(4)}° · lon ${site.coordinates.longitudeDeg.toFixed(4)}° · alt ${site.coordinates.altitudeM} m`
+                ? `${site.name} · ${site.designation} · lat ${formatDegrees(site.coordinates.latitudeDeg, 4)}° · lon ${formatDegrees(site.coordinates.longitudeDeg, 4)}° · alt ${site.coordinates.altitudeM} m`
                 : scenario?.siteName ?? "Site en cours de chargement"}
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-1">
