@@ -3,6 +3,7 @@ export { Card, CardBody, CardFooter, CardHeader } from "./card";
 export { Badge } from "./badge";
 export { VisibilityBadge, visibilityLabel } from "./visibility-badge";
 export { QualityBadge, qualityLabel } from "./quality-badge";
+export { RunStatusBadge } from "./run-status-badge";
 export { Field, Input, Select } from "./field";
 export { Metric } from "./metric";
 export { Timestamp } from "./timestamp";

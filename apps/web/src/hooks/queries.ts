@@ -27,6 +27,7 @@ export const queryKeys = {
   site: (siteId: string) => ["site", siteId] as const,
   scenarios: () => ["scenarios"] as const,
   scenario: (scenarioId: string) => ["scenario", scenarioId] as const,
+  runs: () => ["runs"] as const,
   run: (runId: string) => ["run", runId] as const,
   series: (runId: string) => ["run", runId, "series"] as const,
   windows: (runId: string) => ["run", runId, "windows"] as const,
@@ -69,6 +70,10 @@ export function useCreateScenario(): UseMutationResult<Scenario, Error, CreateSc
       void queryClient.invalidateQueries({ queryKey: queryKeys.scenarios() });
     },
   });
+}
+
+export function useRuns(): UseQueryResult<Run[]> {
+  return useQuery({ queryKey: queryKeys.runs(), queryFn: () => api.runs.list() });
 }
 
 /** Polling tant que le run est QUEUED / RUNNING. */

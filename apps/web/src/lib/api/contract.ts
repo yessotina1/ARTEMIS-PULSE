@@ -35,6 +35,7 @@ export interface ArtemisApi {
   };
   runs: {
     get(runId: string): Promise<Run>;
+    list(): Promise<Run[]>;
     listForScenario(scenarioId: string): Promise<Run[]>;
     create(scenarioId: string): Promise<Run>;
     series(runId: string): Promise<TimeSeries>;

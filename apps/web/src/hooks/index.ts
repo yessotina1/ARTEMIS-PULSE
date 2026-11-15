@@ -5,6 +5,7 @@ export {
   useCreateScenario,
   useReports,
   useRun,
+  useRuns,
   useRunSeries,
   useScenario,
   useScenarios,

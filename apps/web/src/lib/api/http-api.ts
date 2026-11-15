@@ -44,6 +44,10 @@ export const httpApi: ArtemisApi = {
   },
   runs: {
     get: (runId) => http.get<Run>(`/runs/${runId}`),
+    list: () =>
+      http
+        .get<ListResponse<Run> | Run[]>("/runs")
+        .then((response) => (Array.isArray(response) ? response : response.items)),
     listForScenario: (scenarioId) =>
       http
         .get<ListResponse<Run> | Run[]>(`/scenarios/${scenarioId}/runs`)

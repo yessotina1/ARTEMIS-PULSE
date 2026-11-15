@@ -213,6 +213,11 @@ export const mockApi: ArtemisApi = {
       return simulated;
     },
 
+    async list() {
+      await delay(220);
+      return [...runStore];
+    },
+
     async listForScenario(scenarioId: string) {
       await delay(180);
       return runStore.filter((run) => run.scenarioId === scenarioId);
