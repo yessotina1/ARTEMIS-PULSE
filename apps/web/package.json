@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cesium:assets": "node scripts/copy-cesium.mjs",
+    "predev": "node scripts/copy-cesium.mjs",
+    "prebuild": "node scripts/copy-cesium.mjs"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.107.1",

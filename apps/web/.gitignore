@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Assets Cesium copiés par scripts/copy-cesium.mjs
+public/cesium/
