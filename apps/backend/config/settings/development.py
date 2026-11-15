@@ -18,3 +18,5 @@ if not database_url:
     )
 
 DATABASES = {"default": database_from_url(database_url)}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
