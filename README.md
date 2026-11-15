@@ -1,99 +1,45 @@
 # ARTEMIS PULSE
 
-Plateforme d'exploration et de planification de sites du pôle Sud lunaire.
-Le navigateur affiche ce que l'API fournit. Il ne calcule ni l'illumination,
-ni la visibilité de la Terre, ni l'énergie produite.
+Le moteur scientifique est branché sur l'API Django. Sans `DATABASE_URL`, le site tourne sur SQLite.
 
-## État actuel
+```powershell
+cd C:\Users\TestWindows\Projects\artemis-pulse
+.\.venv\Scripts\python.exe -m pip install -e "apps/backend"
+cd apps\backend
+..\..\.venv\Scripts\python.exe manage.py migrate
+..\..\.venv\Scripts\python.exe manage.py seed_sites
+..\..\.venv\Scripts\python.exe manage.py runserver
+```
 
-Deux modes coexistent.
+Ouvrez http://127.0.0.1:8000/ . L'évaluation directe est aussi `GET /api/analyses/evaluate/?site=apollo11&epoch=1969-07-20T20:17:40`.
 
-- **Démonstration** (`NEXT_PUBLIC_USE_MOCKS` non défini ou différent de `false`) : le front
-  montre des écrans complets alimentés par des jeux locaux. Un bandeau l'indique.
-- **Produit** (`NEXT_PUBLIC_USE_MOCKS=false`) : le front parle à Django.
+Avec une URL Neon dans `DATABASE_URL`, `manage.py` utilise `config.settings.development` et PostGIS. Le frontend Next.js n'est pas encore écrit : `apps/web` réserve seulement son emplacement.
 
-En mode produit, ce qui est réel :
+## Moteur seul
 
-- inscription, connexion, déconnexion et demande de réinitialisation de mot de passe ;
-- profils Planificateur, Éducateur et Explorateur ;
-- catalogue des sites (nom, coordonnées, description, caractéristiques) ;
-- enregistrement d'un scénario (site, observateur, fenêtre UTC, nombre de pas demandé).
+Fonctions Python qui prennent un site lunaire et une date UTC et renvoient l'élévation du Soleil, l'élévation de la Terre, l'éclairement d'une surface horizontale et le temps de lumière. Les unités et les conventions sont dans chaque résultat, champ `conventions`.
 
-Ce qui n'est pas calculé, et n'est donc pas inventé :
-
-- illumination, visibilité géométrique, profil d'horizon, flux solaire ;
-- séries temporelles et fenêtres (listes vides) ;
-- score de comparaison (l'API répond `409 NOT_COMPUTED`) ;
-- rapports (liste vide).
-
-Une exécution de scénario est enregistrée avec le statut `FAILED` et le code `NOT_COMPUTED`.
-
-## Lancer le produit
-
-Backend, depuis `apps/backend` :
+## Lancer
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements\base.txt
-$env:DJANGO_SETTINGS_MODULE = "config.settings.development"
-# Sans DATABASE_URL, Django démarre sur un fichier SQLite local (dev.sqlite3).
-# Avec DATABASE_URL et DATABASE_URL_DIRECT, les migrations vont sur Neon.
-.\.venv\Scripts\python.exe manage.py migrate
-.\.venv\Scripts\python.exe manage.py runserver
+.\.venv\Scripts\Activate.ps1
+pip install -e ".[dev]"
+python -m pytest
+python -m apps.backend.scientific apollo11 1969-07-20T20:17:40
 ```
 
-Les tests n'utilisent pas Neon :
+Un site libre se donne par `--lat` et `--lon` en degrés, hauteur optionnelle en mètres au-dessus de la sphère de 1737,4 km.
 
-```powershell
-$env:DJANGO_SETTINGS_MODULE = "config.settings.test"
-.\.venv\Scripts\python.exe manage.py test
-```
+## Ce qui est calculé
 
-Front, depuis `apps/web` :
+- Repère MOON_ME, azimut nord vers est, élévation géométrique sans réfraction.
+- Éphéméride locale (Meeus tronqué + orientation IAU). Erreur typique : quelques dixièmes de degré.
+- Horizons (`fetch_vectors`, `fetch_observer`, `HorizonsEphemeris`) si le réseau est disponible. L'observateur est `coord@301`, mode `AIRLESS`. Le 20 juillet 1969 à 20:17:40 UTC, Horizons donne à Apollo 11 un Soleil à 10,70° d'élévation et 88,81° d'azimut ; le modèle local tombe à moins de 0,05° de ces deux valeurs.
+- SPICE via SpiceyPy si des noyaux sont dans un dossier. `kernel_status` liste les fichiers. Les URL NAIF sont dans `sources/nasa/spice_kernels.py`. `de440.bsp` n'est pas téléchargé.
+- MNT : GeoTIFF (rasterio), étiquette PDS3, ou JSON + binaire. `compute_horizon_profile` lance des rayons en tenant compte de la courbure.
+- LROC : emprise, URL WMS GetMap, lecture d'une étiquette. Les images NAC ne sont pas téléchargées.
 
-```powershell
-npm install
-$env:NEXT_PUBLIC_USE_MOCKS = "false"
-$env:NEXT_PUBLIC_API_URL = "http://localhost:8000/api/v1"
-npm run dev
-```
+Sans MNT, l'horizon est celui de la sphère. Au pôle Sud, le relief change le coucher : il faut un extrait LOLA.
 
-OpenAPI : `http://localhost:8000/api/docs/`.
-
-## API utilisée par le front
-
-Préfixe `/api/v1`. Jeton `Authorization: Token …` après connexion.
-
-| Méthode | Chemin | Rôle |
-| --- | --- | --- |
-| POST | `/auth/register` | Créer un compte |
-| POST | `/auth/login` | Ouvrir une session |
-| POST | `/auth/logout` | Révoquer le jeton |
-| POST | `/auth/password-reset` | Demander un e-mail de réinitialisation |
-| GET | `/sites`, `/sites/{id\|slug}` | Catalogue, sans résultat scientifique |
-| GET, POST | `/scenarios` | Scénarios de l'utilisateur |
-| DELETE | `/scenarios/{id}` | Retirer un scénario |
-| GET, POST | `/scenarios/{id}/runs` | Historique et demande d'exécution |
-| GET | `/runs`, `/runs/{id}` | Statut d'exécution |
-| GET | `/runs/{id}/series` | Série vide tant que le calcul n'existe pas |
-| GET | `/runs/{id}/visibility-windows` | Aucune fenêtre tant que le calcul n'existe pas |
-| GET, POST | `/comparisons` | Liste vide ; la création est refusée |
-| GET | `/reports` | Liste vide |
-
-Les routes `/api/accounts/`, `/api/catalog/` et `/api/datasets/` restent disponibles
-pour la gestion directe des comptes, des sites et des métadonnées NASA.
-
-## Base de données
-
-PostgreSQL est hébergé sur Neon (PostgreSQL 17, PostGIS 3.5.7).
-`DATABASE_URL` est le pooler. `DATABASE_URL_DIRECT` sert aux migrations.
-Aucune base PostgreSQL locale n'est déclarée dans Docker Compose.
-Les coordonnées lunaires sont des décimales avec un référentiel explicite.
-`WGS84` et `EPSG:4326` sont refusés.
-
-## Ce qui reste à construire
-
-Le moteur scientifique (Horizons, SPICE, LOLA, LROC), l'énergie, les fenêtres
-de communication, les comparaisons chiffrées, les rapports exportés, l'éducation
-persistée et le branchement Neon si les variables d'environnement ne sont pas
-encore renseignées.
+La prédiction des levers et couchers (220 jours, pas de 6 h) utilise l'éphéméride locale ou SPICE, pas une requête Horizons par pas.
