@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
-import { EmptyState } from "@/components/ui";
+import { Button } from "@/components/ui";
+import { ScenarioDetailView } from "@/features/scenarios/scenario-detail-view";
 
-// Route bloquante : données de démonstration chargées côté serveur.
+// Route bloquante : identifiant de scénario lu dans l'URL.
 export const instant = false;
+
+export const metadata: Metadata = { title: "Scénario" };
 
 export default async function ScenarioDetailPage({
   params,
@@ -10,8 +15,21 @@ export default async function ScenarioDetailPage({
   const { scenarioId } = await params;
   return (
     <>
-      <PageHeader eyebrow="Scénario" title={`Scénario ${scenarioId}`} />
-      <EmptyState title="Détail du scénario en préparation" />
+      <PageHeader
+        eyebrow="Mes scénarios"
+        title="Détail du scénario"
+        breadcrumb={[
+          { href: "/dashboard", label: "Tableau de bord" },
+          { href: "/scenarios", label: "Mes scénarios" },
+          { label: scenarioId },
+        ]}
+        actions={
+          <Link href="/scenarios">
+            <Button variant="secondary">Retour à la liste</Button>
+          </Link>
+        }
+      />
+      <ScenarioDetailView scenarioId={scenarioId} />
     </>
   );
 }

@@ -8,6 +8,7 @@ export {
   useRuns,
   useRunSeries,
   useScenario,
+  useScenarioRuns,
   useScenarios,
   useSite,
   useSites,

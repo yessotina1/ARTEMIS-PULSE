@@ -17,7 +17,7 @@ Suivi d'avancement de la construction du front-end. Une tâche = un commit (`fea
 - [x] 11. Espace d analyse Soleil/Terre et polling du run.
 - [x] 12. Chronologie : fenêtres d'illumination et de visibilité terrestre, curseur, lecture/pause.
 - [x] 13. Comparateur de 2 à 4 scénarios avec courbes recharts et score pondéré.
-- [ ] 14. Détail d'un scénario sauvegardé, Rapports, Paramètres.
+- [x] 14. Détail d un scénario sauvegardé, Rapports, Paramètres.
 - [ ] 15. Passe finale : accessibilité, responsive, états, README apps/web.
 
 ## Arbitrage des maquettes

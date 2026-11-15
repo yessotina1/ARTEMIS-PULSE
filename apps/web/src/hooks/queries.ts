@@ -28,6 +28,7 @@ export const queryKeys = {
   scenarios: () => ["scenarios"] as const,
   scenario: (scenarioId: string) => ["scenario", scenarioId] as const,
   runs: () => ["runs"] as const,
+  scenarioRuns: (scenarioId: string) => ["scenario", scenarioId, "runs"] as const,
   run: (runId: string) => ["run", runId] as const,
   series: (runId: string) => ["run", runId, "series"] as const,
   windows: (runId: string) => ["run", runId, "windows"] as const,
@@ -58,6 +59,14 @@ export function useScenario(scenarioId: string): UseQueryResult<Scenario> {
   return useQuery({
     queryKey: queryKeys.scenario(scenarioId),
     queryFn: () => api.scenarios.get(scenarioId),
+    enabled: Boolean(scenarioId),
+  });
+}
+
+export function useScenarioRuns(scenarioId: string): UseQueryResult<Run[]> {
+  return useQuery({
+    queryKey: queryKeys.scenarioRuns(scenarioId),
+    queryFn: () => api.runs.listForScenario(scenarioId),
     enabled: Boolean(scenarioId),
   });
 }
