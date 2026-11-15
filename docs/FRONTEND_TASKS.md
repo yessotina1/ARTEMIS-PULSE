@@ -7,7 +7,7 @@ Suivi d'avancement de la construction du front-end. Une tâche = un commit (`fea
 - [x] 1. Design system : tokens Tailwind depuis le frontmatter de DESIGN.md, polices next/font (Space Grotesk, Inter, JetBrains Mono), fond sombre, page /design-system de vérification.
 - [x] 2. Composants UI : Button, Card, Input, Select, Badge, VisibilityBadge, QualityBadge, Timestamp UTC, Metric, Tabs, Modal, états Loading/Empty/Error, bannière d'hypothèses.
 - [x] 3. Types et client API : src/types, src/lib/api, mocks réalistes, hooks React Query.
-- [ ] 4. Layout et navigation : barre latérale, en-tête, responsive, groupes de routes (public), (planner).
+- [x] 4. Layout et navigation : barre latérale, en-tête, responsive, groupes de routes (public), (planner).
 - [ ] 5. Authentification (UI) : connexion / inscription / mot de passe oublié, branchée sur les mocks.
 - [ ] 6. Pages publiques : accueil, fiche publique d'un site, analyse de démonstration en mode invité.
 - [ ] 7. Tableau de bord Planificateur.
