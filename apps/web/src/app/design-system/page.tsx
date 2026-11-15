@@ -1,4 +1,23 @@
 import type { Metadata } from "next";
+import {
+  AssumptionBanner,
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  EmptyState,
+  ErrorState,
+  Field,
+  Input,
+  LoadingState,
+  Metric,
+  QualityBadge,
+  Select,
+  Timestamp,
+  VisibilityBadge,
+} from "@/components/ui";
+import { InteractiveShowcase } from "@/components/dev/interactive-showcase";
 
 export const metadata: Metadata = {
   title: "Design system",
@@ -143,11 +162,112 @@ export default function DesignSystemPage() {
       </section>
 
       <section className="mt-xl">
-        <h2 className="text-headline-sm font-heading">Fond de données (démo)</h2>
-        <p className="mt-sm text-body-sm text-on-surface-variant">
-          Le bandeau « Données de démonstration » et la bannière d&apos;hypothèses sont
-          décrits dans DESIGN.md (sections 3 et 4) et implémentés avec les composants UI.
-        </p>
+        <h2 className="text-headline-sm font-heading">Boutons</h2>
+        <div className="mt-md flex flex-wrap items-center gap-sm">
+          <Button>Lancer l&apos;analyse</Button>
+          <Button variant="secondary">Hypothèses et limites</Button>
+          <Button variant="ghost">Annuler</Button>
+          <Button variant="danger">Supprimer</Button>
+          <Button loading>Calcul en cours</Button>
+        </div>
+      </section>
+
+      <section className="mt-xl">
+        <h2 className="text-headline-sm font-heading">Badges de visibilité</h2>
+        <div className="mt-md flex flex-wrap gap-sm">
+          <VisibilityBadge value="FULL" />
+          <VisibilityBadge value="PARTIAL" />
+          <VisibilityBadge value="OCCULTED" />
+          <VisibilityBadge value="UNKNOWN" />
+        </div>
+        <h2 className="mt-lg text-headline-sm font-heading">Badges de qualité</h2>
+        <div className="mt-md flex flex-wrap gap-sm">
+          <QualityBadge value="VALIDATED" />
+          <QualityBadge value="ESTIMATED" />
+          <QualityBadge value="LOW" />
+          <QualityBadge value="UNCOMPUTABLE" />
+        </div>
+        <div className="mt-md flex flex-wrap gap-sm">
+          <Badge tone="primary">RIDGE</Badge>
+          <Badge tone="neutral">MOLA</Badge>
+          <Badge tone="success">T-0 NOMINAL</Badge>
+        </div>
+      </section>
+
+      <section className="mt-xl">
+        <h2 className="text-headline-sm font-heading">Cartouches & métriques</h2>
+        <div className="mt-md grid gap-md md:grid-cols-3">
+          <Card>
+            <CardHeader eyebrow="Éphéméride #01" title="Visibilité du Soleil" />
+            <CardBody className="grid grid-cols-2 gap-md">
+              <Metric label="Azimut" value="142.35" unit="°" hint="S-SE" />
+              <Metric label="Élévation" value="+1.84" unit="°" hint="Rasant" />
+              <Metric label="Flux solaire" value={1361} unit="W/m²" />
+              <Metric label="Illumination" value="42h 15m" />
+            </CardBody>
+          </Card>
+          <Card>
+            <CardHeader title="Horodatage" eyebrow="UTC" />
+            <CardBody className="space-y-sm">
+              <Timestamp value="2026-11-14T08:42:00Z" variant="block" />
+              <Timestamp value="2026-11-14T08:42:00Z" />
+              <p className="text-body-sm text-on-surface-variant">
+                Format strict <span className="font-mono">YYYY-MM-DD HH:mm UTC</span>.
+              </p>
+            </CardBody>
+          </Card>
+          <Card>
+            <CardHeader title="Champs" eyebrow="Formulaire" />
+            <CardBody className="space-y-md">
+              <Field label="Latitude" htmlFor="demo-lat" required hint="Entre -90° et +90°">
+                <Input id="demo-lat" defaultValue="-89.7820" inputMode="decimal" />
+              </Field>
+              <Field label="Site" htmlFor="demo-site">
+                <Select
+                  id="demo-site"
+                  options={[
+                    { value: "shackleton", label: "Shackleton Rim" },
+                    { value: "malapert", label: "Malapert Mountain" },
+                  ]}
+                />
+              </Field>
+            </CardBody>
+          </Card>
+        </div>
+      </section>
+
+      <section className="mt-xl">
+        <h2 className="text-headline-sm font-heading">Onglets & modale</h2>
+        <div className="mt-md">
+          <InteractiveShowcase />
+        </div>
+      </section>
+
+      <section className="mt-xl space-y-md">
+        <h2 className="text-headline-sm font-heading">États</h2>
+        <LoadingState rows={2} />
+        <EmptyState
+          title="Aucun scénario sauvegardé"
+          description="Créez une analyse pour comparer des sites et des fenêtres temporelles."
+        />
+        <ErrorState
+          title="Calcul indisponible"
+          message="Le statut du run n'a pas pu être récupéré."
+          code="RUN_STATUS_UNAVAILABLE"
+          requestId="req_demo_001"
+        />
+      </section>
+
+      <section className="mt-xl">
+        <h2 className="text-headline-sm font-heading">Bannière d&apos;hypothèses</h2>
+        <div className="mt-md">
+          <AssumptionBanner
+            model="MOLA/LOLA DEM 20 m, Éphémérides DE440, réfraction nulle"
+            source="SPICE / MOON_PA_DE440"
+            version="2029.1"
+            href="#"
+          />
+        </div>
       </section>
     </main>
   );
