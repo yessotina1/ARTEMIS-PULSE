@@ -11,7 +11,7 @@ Suivi d'avancement de la construction du front-end. Une tâche = un commit (`fea
 - [x] 5. Authentification (UI) : connexion / inscription / mot de passe oublié, branchée sur les mocks.
 - [x] 6. Pages publiques : accueil, fiche publique d'un site, analyse de démonstration en mode invité.
 - [x] 7. Tableau de bord Planificateur.
-- [ ] 8. Catalogue des sites et fiche détaillée d'un site.
+- [x] 8. Catalogue des sites et fiche détaillée d'un site.
 - [ ] 9. Explorateur lunaire : globe CesiumJS dynamique + repli carte 2D polaire.
 - [ ] 10. Assistant de scénario en 4 étapes avec validation zod.
 - [ ] 11. Espace d'analyse Soleil/Terre et polling du run.
