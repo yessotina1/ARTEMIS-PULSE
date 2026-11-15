@@ -170,6 +170,9 @@ export function CatalogueView() {
                     <th scope="col" className="px-md py-xs font-medium">Qualité</th>
                     <th scope="col" className="px-md py-xs font-medium">DEM</th>
                     <th scope="col" className="hidden px-md py-xs font-medium md:table-cell">Illum.</th>
+                    <th scope="col" className="px-md py-xs font-medium">
+                      <span className="sr-only">Actions</span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -273,6 +276,19 @@ function SiteRow({
       </td>
       <td className="hidden px-md py-xs font-mono text-label-md tabular md:table-cell">
         {site.illuminationPercent === null ? "—" : formatPercent(site.illuminationPercent, 1)}
+      </td>
+      <td className="px-md py-xs">
+        <button
+          type="button"
+          onClick={(event) => {
+            event.stopPropagation();
+            onSelect();
+          }}
+          aria-label={`Inspecter ${site.name}`}
+          className="rounded border border-grid p-xs text-on-surface-variant hover:border-primary/50 hover:text-primary"
+        >
+          <Icon name="search" size={13} />
+        </button>
       </td>
     </tr>
   );

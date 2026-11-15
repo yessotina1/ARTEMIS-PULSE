@@ -159,13 +159,13 @@ export function ScenarioTimeline({
                 dataKey="atUtc"
                 tickFormatter={(value: string) => formatAxisTick(value, "time")}
                 stroke="#869397"
-                tick={{ fill: "#bcc9cd", fontSize: 11 }}
+                tick={{ fill: "#bcc9cd", fontSize: 12 }}
                 interval="preserveStartEnd"
                 minTickGap={48}
               />
               <YAxis
                 stroke="#869397"
-                tick={{ fill: "#bcc9cd", fontSize: 11 }}
+                tick={{ fill: "#bcc9cd", fontSize: 12 }}
                 tickFormatter={(value: number) => `${value.toFixed(0)}°`}
                 domain={[-6, 8]}
               />

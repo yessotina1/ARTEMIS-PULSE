@@ -78,7 +78,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
           y={center - maxRadius - 14}
           textAnchor="middle"
           className="fill-[#bcc9cd] font-mono"
-          fontSize="11"
+          fontSize="12"
         >
           0° MÉRIDIEN · VERS LA TERRE
         </text>
@@ -123,7 +123,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
                   x={point.x + 9}
                   y={point.y + 4}
                   className="fill-[#bcc9cd] font-mono"
-                  fontSize="11"
+                  fontSize="12"
                 >
                   {site.name.split(" ")[0]}
                 </text>

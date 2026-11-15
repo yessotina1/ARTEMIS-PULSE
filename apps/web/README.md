@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ARTEMIS PULSE — Front-end
 
-## Getting Started
+Console de planification de la visibilité géométrique Soleil / Terre aux sites du pôle Sud lunaire.
+Le navigateur **n'effectue aucun calcul scientifique** : il affiche ce que l'API renvoie.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router, Turbopack), React 19, TypeScript strict
+- Tailwind CSS v4 — tokens issus du frontmatter de `docs/design/.../DESIGN.md`
+- `@tanstack/react-query` (données et polling), `zod` (validation), `recharts` (courbes), CesiumJS (globe)
+
+## Lancement
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd apps/web
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Les assets Cesium sont copiés dans `public/cesium` par `scripts/copy-cesium.mjs`
+(automatique via `predev` / `prebuild`, aucun token Cesium ion requis).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Variables publiques :
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Défaut | Rôle |
+| --- | --- | --- |
+| `NEXT_PUBLIC_USE_MOCKS` | `true` | Utilise `src/lib/api/mock-api.ts` |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:8000/api/v1` | Base de l'API quand les mocks sont désactivés |
 
-## Learn More
+Vérifications : `npm run lint`, `npm run build`.
 
-To learn more about Next.js, take a look at the following resources:
+## Organisation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/app/
+  (public)/        accueil, fiche publique de site, démonstration, connexion/inscription
+  (planner)/       console : tableau de bord, catalogue, explorateur, analyses,
+                   scénarios, comparateur, rapports, documentation, paramètres
+  design-system/   vérification des tokens et composants
+src/components/
+  ui/              Button, Card, Badge, VisibilityBadge, QualityBadge, Metric,
+                   Timestamp, Tabs, Modal, états Loading/Empty/Error, bannière d'hypothèses
+  layout/          AppShell, barre latérale, en-tête, en-tête public
+  lunar/           carte polaire SVG, profil d'horizon, scène du site
+  auth/            mise en page des écrans d'authentification
+src/features/      dashboard, catalogue, lunar-explorer, mission-planner,
+                   comparator, scenarios, reports, settings, auth
+src/hooks/         hooks React Query (sites, scénarios, runs avec polling, comparaisons…)
+src/lib/api/       contrat, client HTTP typé, mocks, point d'entrée `api`
+src/types/         types alignés sur les routes de l'API
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Règles d'affichage appliquées
 
-## Deploy on Vercel
+- Dates en UTC, format `YYYY-MM-DD HH:mm UTC`.
+- Chaque valeur affiche son unité ; azimut dans `[0, 360[`, élévation signée.
+- Visibilité : `FULL`, `PARTIAL`, `OCCULTED`, `UNKNOWN` — toujours libellé + icône.
+- Qualité : `VALIDÉ`, `ESTIMÉ`, `FAIBLE QUALITÉ`, `NON CALCULABLE`.
+- Chaque résultat affiche source, version des données et lien « Hypothèses et limites ».
+- Mentions obligatoires : « Terre visible = visibilité géométrique, pas une garantie de liaison radio »
+  et « Soleil visible ≠ énergie produite ».
+- Bandeau « Données de démonstration » tant que `NEXT_PUBLIC_USE_MOCKS=true`.
+- Budget de liaison radio (DSN, Ka-band, marge multipath, OWLT) volontairement absent.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Explorateur
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Onglet « Carte polaire » par défaut (SVG, sélection clavier). L'onglet « Globe 3D » charge
+CesiumJS dynamiquement (`ssr: false`) sur un ellipsoïde lunaire de 1 737,4 km, sans imagerie
+distante. En cas d'échec WebGL, la carte polaire reste affichée avec un message explicite.
+
+## Limites connues
+
+- Toutes les données proviennent de mocks ; l'API réelle n'est pas branchée.
+- L'authentification est une démonstration locale (`localStorage`), sans sécurité réelle.
+- Aucune vérification visuelle navigateur n'a été réalisée au-delà du build de production.

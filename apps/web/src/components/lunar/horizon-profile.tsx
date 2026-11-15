@@ -65,7 +65,7 @@ export function HorizonProfileChart({
             x={x(azimuth)}
             y={height - 6}
             textAnchor="middle"
-            fontSize="10"
+            fontSize="12"
             className="fill-[#bcc9cd] font-mono"
           >
             {azimuth}°
@@ -84,10 +84,10 @@ export function HorizonProfileChart({
           strokeOpacity="0.8"
         />
       ))}
-      <text x={4} y={y(0) - 4} fontSize="10" className="fill-[#bcc9cd] font-mono">
+      <text x={4} y={y(0) - 4} fontSize="12" className="fill-[#bcc9cd] font-mono">
         0°
       </text>
-      <text x={4} y={y(maxElevation) + 10} fontSize="10" className="fill-[#bcc9cd] font-mono">
+      <text x={4} y={y(maxElevation) + 10} fontSize="12" className="fill-[#bcc9cd] font-mono">
         {maxElevation.toFixed(0)}°
       </text>
       <path d={area} fill="#4cd7f6" fillOpacity="0.12" />
@@ -111,7 +111,7 @@ export function HorizonProfileChart({
           <text
             x={x(marker.azimuthDeg) + 6}
             y={padding.top + 9}
-            fontSize="10"
+            fontSize="12"
             className="fill-[#dee2f0] font-mono"
           >
             {marker.label}

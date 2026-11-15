@@ -54,7 +54,7 @@ export function SiteScene({
         strokeDasharray="4 4"
         strokeOpacity="0.8"
       />
-      <text x="8" y={groundY - 6} fontSize="10" className="fill-[#bcc9cd] font-mono">
+      <text x="8" y={groundY - 6} fontSize="12" className="fill-[#bcc9cd] font-mono">
         HORIZON LOCAL {formatElevation(horizonElevationDeg)}
       </text>
 
@@ -68,7 +68,7 @@ export function SiteScene({
         strokeDasharray="2 3"
       />
       <circle cx={sunPoint.x} cy={sunPoint.y} r="7" fill="#fbbf24" />
-      <text x={sunPoint.x + 12} y={sunPoint.y + 4} fontSize="11" className="fill-[#dee2f0] font-mono">
+      <text x={sunPoint.x + 12} y={sunPoint.y + 4} fontSize="12" className="fill-[#dee2f0] font-mono">
         SOLEIL {formatElevation(sun.elevationDeg)} · AZ {sun.azimuthDeg.toFixed(1)}°
       </text>
 
@@ -82,11 +82,11 @@ export function SiteScene({
         strokeDasharray="2 3"
       />
       <circle cx={earthPoint.x} cy={earthPoint.y} r="7" fill="#adc6ff" />
-      <text x={earthPoint.x + 12} y={earthPoint.y + 4} fontSize="11" className="fill-[#dee2f0] font-mono">
+      <text x={earthPoint.x + 12} y={earthPoint.y + 4} fontSize="12" className="fill-[#dee2f0] font-mono">
         TERRE {formatElevation(earth.elevationDeg)} · AZ {earth.azimuthDeg.toFixed(1)}°
       </text>
 
-      <text x="8" y={height - 10} fontSize="10" className="fill-[#869397] font-mono">
+      <text x="8" y={height - 10} fontSize="12" className="fill-[#869397] font-mono">
         VUE SCHÉMATIQUE · ÉCHELLE D&apos;ÉLÉVATION NON LINÉAIRE
       </text>
     </svg>
