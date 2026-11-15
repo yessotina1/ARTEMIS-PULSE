@@ -1,1 +1,1 @@
-"""GeoDjango backend for Neon PostgreSQL with PostGIS."""
+"""PostgreSQL backend for Neon, with connection retries."""

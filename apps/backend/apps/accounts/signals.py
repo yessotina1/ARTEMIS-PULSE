@@ -8,4 +8,4 @@ from apps.accounts.models import Profile
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile(sender, instance, created: bool, **kwargs) -> None:
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.get_or_create(user=instance)
