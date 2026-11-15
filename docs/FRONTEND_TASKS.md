@@ -14,7 +14,7 @@ Suivi d'avancement de la construction du front-end. Une tâche = un commit (`fea
 - [x] 8. Catalogue des sites et fiche détaillée d'un site.
 - [x] 9. Explorateur lunaire : globe CesiumJS dynamique + repli carte 2D polaire.
 - [x] 10. Assistant de scénario en 4 étapes avec validation zod.
-- [ ] 11. Espace d'analyse Soleil/Terre et polling du run.
+- [x] 11. Espace d analyse Soleil/Terre et polling du run.
 - [ ] 12. Chronologie : fenêtres d'illumination et de visibilité terrestre, curseur, lecture/pause.
 - [ ] 13. Comparateur de 2 à 4 scénarios avec courbes recharts et score pondéré.
 - [ ] 14. Détail d'un scénario sauvegardé, Rapports, Paramètres.
