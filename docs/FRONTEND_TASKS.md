@@ -8,7 +8,7 @@ Suivi d'avancement de la construction du front-end. Une tâche = un commit (`fea
 - [x] 2. Composants UI : Button, Card, Input, Select, Badge, VisibilityBadge, QualityBadge, Timestamp UTC, Metric, Tabs, Modal, états Loading/Empty/Error, bannière d'hypothèses.
 - [x] 3. Types et client API : src/types, src/lib/api, mocks réalistes, hooks React Query.
 - [x] 4. Layout et navigation : barre latérale, en-tête, responsive, groupes de routes (public), (planner).
-- [ ] 5. Authentification (UI) : connexion / inscription / mot de passe oublié, branchée sur les mocks.
+- [x] 5. Authentification (UI) : connexion / inscription / mot de passe oublié, branchée sur les mocks.
 - [ ] 6. Pages publiques : accueil, fiche publique d'un site, analyse de démonstration en mode invité.
 - [ ] 7. Tableau de bord Planificateur.
 - [ ] 8. Catalogue des sites et fiche détaillée d'un site.
