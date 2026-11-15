@@ -13,3 +13,21 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         owner = getattr(obj, "owner", None)
         return owner == request.user
+
+
+class IsAdminRole(BasePermission):
+    """Platform administrator, identified by the account role."""
+
+    def has_permission(self, request, view) -> bool:
+        user = request.user
+        return bool(user and user.is_authenticated and user.role == "admin")
+
+
+class IsAdminOrReadOnly(BasePermission):
+    """Public reads. Writes require the administrator role."""
+
+    def has_permission(self, request, view) -> bool:
+        if request.method in SAFE_METHODS:
+            return True
+        user = request.user
+        return bool(user and user.is_authenticated and user.role == "admin")

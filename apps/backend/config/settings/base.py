@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -40,8 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django.contrib.gis",
     "rest_framework",
+    "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
     "corsheaders",
     "common",
@@ -49,17 +50,12 @@ INSTALLED_APPS = [
     "apps.catalog",
     "apps.datasets",
     "apps.analyses",
-    "apps.comparisons",
-    "apps.education",
-    "apps.simulator",
-    "apps.reports",
-    "apps.notifications",
-    "apps.audit",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "common.middleware.RequestIdMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -110,24 +106,43 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "common.pagination.BoundedPageNumberPagination",
     "PAGE_SIZE": 25,
+    "EXCEPTION_HANDLER": "common.exceptions.api_exception_handler",
+    "DEFAULT_THROTTLE_RATES": {
+        "auth_register": "10/hour",
+        "auth_login": "20/hour",
+        "auth_email": "5/hour",
+    },
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+    "UPDATE_LAST_LOGIN": True,
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "ARTEMIS PULSE API",
     "DESCRIPTION": (
-        "API REST pour l'exploration, l'analyse et la simulation de missions lunaires. "
-        "Les calculs scientifiques ne sont pas encore implémentés et aucun résultat "
-        "n'est synthétisé."
+        "API v1 du socle ARTEMIS PULSE : authentification, catalogue lunaire et "
+        "métadonnées des sources NASA. Les calculs scientifiques sont un contrat séparé."
     ),
-    "VERSION": "0.1.0",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SECURITY": [{"bearerAuth": []}],
 }
+
+DEFAULT_FROM_EMAIL = "ARTEMIS PULSE <noreply@artemis-pulse.local>"
 
 CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", ["http://localhost:3000"])
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", ["http://localhost:3000"])
@@ -149,6 +164,5 @@ AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", "auto")
 
-# Placeholder until a lunar reference system is scientifically validated.
-# Do not store lunar positions as EPSG:4326 / WGS84.
-LUNAR_REFERENCE_FRAME = "unassigned"
+# Mean Earth / polar axis body-fixed frame. Not EPSG:4326 and not WGS84.
+LUNAR_REFERENCE_FRAME = "MOON_ME"
