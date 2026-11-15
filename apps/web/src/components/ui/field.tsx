@@ -14,7 +14,7 @@ type FieldProps = {
 
 export function Field({ label, hint, error, htmlFor, required, children, className }: FieldProps) {
   return (
-    <div className={cn("flex flex-col gap-xs", className)}>
+    <div className={cn("flex flex-col gap-1", className)}>
       <label
         htmlFor={htmlFor}
         className="font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
@@ -24,7 +24,7 @@ export function Field({ label, hint, error, htmlFor, required, children, classNa
       </label>
       {children}
       {error ? (
-        <p role="alert" className="flex items-center gap-xs text-body-sm text-error">
+        <p role="alert" className="flex items-center gap-1 text-body-sm text-error">
           <Icon name="alert-triangle" size={13} />
           {error}
         </p>
@@ -36,7 +36,7 @@ export function Field({ label, hint, error, htmlFor, required, children, classNa
 }
 
 const controlClass =
-  "h-10 w-full rounded border border-grid bg-container-lowest px-sm font-mono text-label-lg text-on-surface placeholder:text-on-surface-variant/60 hover:border-outline-variant focus:border-primary focus:outline-none disabled:opacity-60";
+  "h-10 w-full rounded border border-grid bg-container-lowest px-2 font-mono text-label-lg text-on-surface placeholder:text-on-surface-variant/60 hover:border-outline-variant focus:border-primary focus:outline-none disabled:opacity-60";
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   invalid?: boolean;
@@ -64,7 +64,7 @@ export function Select({ options, className, invalid, ...props }: SelectProps) {
     <div className="relative">
       <select
         aria-invalid={invalid || undefined}
-        className={cn(controlClass, "appearance-none pr-xl", invalid && "border-error", className)}
+        className={cn(controlClass, "appearance-none pr-8", invalid && "border-error", className)}
         {...props}
       >
         {options.map((option) => (

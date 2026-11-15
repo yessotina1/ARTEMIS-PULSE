@@ -10,7 +10,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Navigation principale" className="flex flex-col gap-xs">
+    <nav aria-label="Navigation principale" className="flex flex-col gap-1">
       {PLANNER_NAV.map((item) => {
         const active =
           item.href === "/dashboard"
@@ -23,7 +23,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex items-center gap-sm rounded border border-transparent px-sm py-xs text-body-md transition-colors",
+              "flex items-center gap-2 rounded border border-transparent px-2 py-1 text-body-md transition-colors",
               active
                 ? "border-primary/30 bg-primary/10 text-primary"
                 : "text-on-surface-variant hover:border-outline-variant hover:bg-container-high hover:text-on-surface",
@@ -40,8 +40,8 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
 export function SidebarFooter() {
   return (
-    <div className="mt-auto space-y-xs border-t border-outline-variant px-sm pt-sm font-mono text-label-sm text-on-surface-variant">
-      <p className="flex items-center gap-xs">
+    <div className="mt-auto space-y-1 border-t border-outline-variant px-2 pt-2 font-mono text-label-sm text-on-surface-variant">
+      <p className="flex items-center gap-1">
         <span aria-hidden className="size-1.5 rounded-full bg-quality-validated" />
         DE440 / MOON
       </p>

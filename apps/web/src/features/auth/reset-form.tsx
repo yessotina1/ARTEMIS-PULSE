@@ -27,8 +27,8 @@ export function ResetForm() {
 
   if (sent) {
     return (
-      <div className="space-y-md" role="status">
-        <p className="flex items-start gap-sm rounded border border-quality-validated/40 bg-quality-validated-soft/30 px-sm py-xs text-body-sm text-quality-validated">
+      <div className="space-y-3" role="status">
+        <p className="flex items-start gap-2 rounded border border-quality-validated/40 bg-quality-validated-soft/30 px-2 py-1 text-body-sm text-quality-validated">
           <Icon name="check-circle" size={15} className="mt-0.5 shrink-0" />
           Si un compte existe pour <span className="font-mono">{email}</span>, un lien de
           réinitialisation a été envoyé.
@@ -44,11 +44,11 @@ export function ResetForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-md">
+    <form onSubmit={handleSubmit} noValidate className="space-y-3">
       {error ? (
         <p
           role="alert"
-          className="rounded border border-error/50 bg-error-container/30 px-sm py-xs text-body-sm text-error"
+          className="rounded border border-error/50 bg-error-container/30 px-2 py-1 text-body-sm text-error"
         >
           {error}
         </p>

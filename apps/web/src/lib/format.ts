@@ -34,7 +34,9 @@ export function formatUtcTime(value: string | Date): string {
 export function formatAxisTick(value: string, axis: "time" | "date" = "time"): string {
   const date = toDate(value);
   if (!date) return "";
-  return axis === "time" ? date.toISOString().slice(11, 16) : date.toISOString().slice(5, 10);
+  return axis === "time"
+    ? date.toISOString().slice(11, 16)
+    : `${date.toISOString().slice(8, 10)}/${date.toISOString().slice(5, 7)}`;
 }
 
 /** Azimut `[0, 360[` sur 3 entiers + une décimale : `035.12°`. */

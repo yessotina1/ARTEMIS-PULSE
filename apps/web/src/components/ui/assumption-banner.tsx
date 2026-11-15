@@ -33,13 +33,13 @@ export function AssumptionBanner({
     <section
       aria-label={title}
       className={cn(
-        "hatched rounded border border-outline-variant bg-container-low px-md py-sm",
+        "hatched rounded border border-outline-variant bg-container-low px-3 py-2",
         tone === "primary" ? "border-l-[3px] border-l-primary" : "border-l-[3px] border-l-quality-low",
         className,
       )}
     >
-      <div className="flex flex-wrap items-center justify-between gap-xs">
-        <h2 className="flex items-center gap-xs font-mono text-label-md uppercase tracking-wider text-on-surface">
+      <div className="flex flex-wrap items-center justify-between gap-1">
+        <h2 className="flex items-center gap-1 font-mono text-label-md uppercase tracking-wider text-on-surface">
           <Icon name="info" size={14} className="text-primary" />
           {title}
         </h2>
@@ -54,22 +54,22 @@ export function AssumptionBanner({
       </div>
       <ul
         className={cn(
-          "mt-xs space-y-xs text-body-sm text-on-surface-variant",
-          !compact && "sm:grid sm:grid-cols-2 sm:gap-md sm:space-y-0",
+          "mt-1 space-y-1 text-body-sm text-on-surface-variant",
+          !compact && "sm:grid sm:grid-cols-2 sm:gap-3 sm:space-y-0",
         )}
       >
         {limits.map((limit) => (
-          <li key={limit} className="flex items-start gap-xs">
+          <li key={limit} className="flex items-start gap-1">
             <span aria-hidden className="mt-1.5 size-1 shrink-0 rounded-full bg-outline" />
             {limit}
           </li>
         ))}
       </ul>
       {model || source || version ? (
-        <p className="mt-sm border-t border-outline-variant/60 pt-xs font-mono text-label-sm text-on-surface-variant">
+        <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 border-t border-outline-variant/60 pt-1 font-mono text-label-sm text-on-surface-variant">
           {model ? <span>Modèle : {model}</span> : null}
-          {source ? <span className="ml-md">Source : {source}</span> : null}
-          {version ? <span className="ml-md">Version : {version}</span> : null}
+          {source ? <span>Source : {source}</span> : null}
+          {version ? <span>Version : {version}</span> : null}
         </p>
       ) : null}
     </section>

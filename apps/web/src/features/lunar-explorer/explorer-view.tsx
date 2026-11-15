@@ -16,11 +16,10 @@ import {
   QualityBadge,
   Tabs,
   Timestamp,
-  VisibilityBadge,
 } from "@/components/ui";
 import { PolarMap } from "@/components/lunar/polar-map";
 import { useSites } from "@/hooks";
-import { formatElevation, formatPercent } from "@/lib/format";
+import { formatPercent } from "@/lib/format";
 
 const CesiumGlobe = dynamic(() => import("./cesium-globe"), {
   ssr: false,
@@ -56,14 +55,14 @@ export function ExplorerView() {
   const selected = sites.find((site) => site.id === selectedId) ?? southPoleSites[0] ?? sites[0];
 
   return (
-    <div className="grid gap-md xl:grid-cols-[240px_1fr_320px]">
+    <div className="grid gap-3 xl:grid-cols-[240px_1fr_320px]">
       <Card className="min-w-0">
         <CardHeader eyebrow="Sites candidats" title="Zone clé sud" icon={<Icon name="target" size={16} />} />
-        <CardBody className="space-y-xs">
+        <CardBody className="space-y-1">
           <p className="font-mono text-label-sm uppercase text-on-surface-variant">
             {southPoleSites.length} sites au pôle Sud
           </p>
-          <ul className="space-y-xs">
+          <ul className="space-y-1">
             {southPoleSites.map((site) => {
               const active = site.id === selected?.id;
               return (
@@ -72,7 +71,7 @@ export function ExplorerView() {
                     type="button"
                     onClick={() => setSelectedId(site.id)}
                     aria-pressed={active}
-                    className={`w-full rounded border px-sm py-xs text-left transition-colors ${
+                    className={`w-full rounded border px-2 py-1 text-left transition-colors ${
                       active
                         ? "border-primary/60 bg-primary/10"
                         : "border-grid hover:border-outline-variant hover:bg-container-high"
@@ -82,10 +81,14 @@ export function ExplorerView() {
                     <span className="block font-mono text-label-sm text-on-surface-variant">
                       {site.coordinates.latitudeDeg.toFixed(2)}° · {site.coordinates.longitudeDeg.toFixed(2)}°
                     </span>
-                    <span className="mt-xs flex flex-wrap gap-xs">
+                    <span className="mt-1 flex flex-wrap gap-1">
                       <QualityBadge value={site.quality} />
                       <Badge tone={site.dem.status === "FULL" ? "success" : "warning"}>
-                        DEM {site.dem.status === "FULL" ? `${site.dem.resolutionM} m` : site.dem.status}
+                        {site.dem.status === "FULL"
+                          ? `DEM ${site.dem.resolutionM} m`
+                          : site.dem.status === "PARTIAL"
+                            ? "DEM partielle"
+                            : "DEM absente"}
                       </Badge>
                     </span>
                   </button>
@@ -115,7 +118,7 @@ export function ExplorerView() {
           }
         />
 
-        <CardBody className="space-y-sm">
+        <CardBody className="space-y-2">
           {view === "globe" && !cesiumFailed ? (
             <CesiumGlobe
               sites={southPoleSites}
@@ -126,7 +129,7 @@ export function ExplorerView() {
           ) : (
             <>
               {cesiumFailed ? (
-                <p className="rounded border border-quality-low/40 bg-quality-low-soft/20 px-sm py-xs text-body-sm text-quality-low">
+                <p className="rounded border border-quality-low/40 bg-quality-low-soft/20 px-2 py-1 text-body-sm text-quality-low">
                   <Icon name="alert-triangle" size={13} className="mr-1 inline" />
                   Le rendu 3D Cesium n&apos;a pas pu démarrer dans ce navigateur. La carte polaire
                   2D reste disponible avec la même sélection de sites.
@@ -155,9 +158,9 @@ export function ExplorerView() {
             icon={<Icon name="pin" size={16} />}
             actions={<QualityBadge value={selected.quality} />}
           />
-          <CardBody className="space-y-sm">
+          <CardBody className="space-y-2">
             <p className="font-mono text-label-sm text-on-surface-variant">{selected.designation}</p>
-            <div className="grid grid-cols-2 gap-sm">
+            <div className="grid grid-cols-2 gap-2">
               <Metric label="Latitude" value={selected.coordinates.latitudeDeg.toFixed(3)} unit="°" />
               <Metric label="Longitude" value={selected.coordinates.longitudeDeg.toFixed(3)} unit="°" />
               <Metric label="Altitude" value={selected.coordinates.altitudeM} unit="m" />
@@ -168,26 +171,25 @@ export function ExplorerView() {
                 digits={1}
               />
             </div>
-            <div className="space-y-xs border-t border-outline-variant pt-sm">
-              <div className="flex items-center justify-between gap-xs">
-                <span className="font-mono text-label-sm uppercase text-on-surface-variant">Soleil</span>
-                <VisibilityBadge value={selected.dem.status === "NONE" ? "UNKNOWN" : "FULL"} variant="compact" />
-              </div>
-              <div className="flex items-center justify-between gap-xs">
-                <span className="font-mono text-label-sm uppercase text-on-surface-variant">Terre</span>
-                <VisibilityBadge
-                  value={selected.dem.status === "NONE" ? "UNKNOWN" : selected.dem.status === "PARTIAL" ? "PARTIAL" : "FULL"}
-                  variant="compact"
-                />
-              </div>
-              <p className="font-mono text-label-sm text-on-surface-variant">
-                Élévation solaire de référence :{" "}
-                {formatElevation(selected.illuminationPercent ? 1.84 : null)} · illumination{" "}
-                {formatPercent(selected.illuminationPercent, 1)}
+            <div className="space-y-1 border-t border-outline-variant pt-2">
+              <p className="flex items-center justify-between gap-2 font-mono text-label-sm text-on-surface-variant">
+                Couverture DEM
+                <span>{selected.dem.status === "FULL" ? `${selected.dem.resolutionM} m/px` : selected.dem.status}</span>
+              </p>
+              <p className="flex items-center justify-between gap-2 font-mono text-label-sm text-on-surface-variant">
+                Illumination moyenne
+                <span>{formatPercent(selected.illuminationPercent, 1)}</span>
+              </p>
+              <p className="flex items-center justify-between gap-2 font-mono text-label-sm text-on-surface-variant">
+                Nuit continue max.
+                <span>{selected.maxContinuousDarknessHours === null ? "—" : `${selected.maxContinuousDarknessHours} h`}</span>
+              </p>
+              <p className="text-body-sm text-on-surface-variant">
+                La visibilité Soleil / Terre de référence est affichée sur la fiche détaillée.
               </p>
             </div>
             <Timestamp value={selected.referenceEphemerisUtc} />
-            <div className="flex flex-col gap-xs border-t border-outline-variant pt-sm">
+            <div className="flex flex-col gap-1 border-t border-outline-variant pt-2">
               <Link href={`/catalogue/${selected.id}`}>
                 <Button fullWidth variant="secondary" size="sm">Fiche détaillée</Button>
               </Link>

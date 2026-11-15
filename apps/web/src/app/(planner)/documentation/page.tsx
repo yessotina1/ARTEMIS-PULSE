@@ -36,7 +36,7 @@ export default function DocumentationPage() {
         description="Ce que le front affiche, ce qu'il ne calcule pas, et comment lire chaque indicateur."
       />
 
-      <div className="space-y-md">
+      <div className="space-y-3">
         <AssumptionBanner
           title="Cadre méthodologique"
           model="MOLA/LOLA DEM 20 m · éphémérides DE440 · réfraction nulle"
@@ -49,13 +49,13 @@ export default function DocumentationPage() {
           ]}
         />
 
-        <div className="grid gap-md lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           <Card>
             <CardHeader eyebrow="Lecture" title="Classes de visibilité" icon={<Icon name="globe" size={16} />} />
             <CardBody>
-              <dl className="space-y-sm">
+              <dl className="space-y-2">
                 {VISIBILITY_ROWS.map((row) => (
-                  <div key={row.value} className="flex flex-wrap items-start justify-between gap-xs border-b border-outline-variant/50 pb-xs last:border-0">
+                  <div key={row.value} className="flex flex-wrap items-start justify-between gap-1 border-b border-outline-variant/50 pb-1 last:border-0">
                     <dt><VisibilityBadge value={row.value} /></dt>
                     <dd className="max-w-sm text-body-sm text-on-surface-variant">{row.detail}</dd>
                   </div>
@@ -67,9 +67,9 @@ export default function DocumentationPage() {
           <Card>
             <CardHeader eyebrow="Confiance" title="Badges de qualité" icon={<Icon name="check-circle" size={16} />} />
             <CardBody>
-              <dl className="space-y-sm">
+              <dl className="space-y-2">
                 {QUALITY_ROWS.map((row) => (
-                  <div key={row.value} className="flex flex-wrap items-start justify-between gap-xs border-b border-outline-variant/50 pb-xs last:border-0">
+                  <div key={row.value} className="flex flex-wrap items-start justify-between gap-1 border-b border-outline-variant/50 pb-1 last:border-0">
                     <dt><QualityBadge value={row.value} /></dt>
                     <dd className="max-w-sm text-body-sm text-on-surface-variant">{row.detail}</dd>
                   </div>
@@ -79,9 +79,9 @@ export default function DocumentationPage() {
           </Card>
         </div>
 
-        <div className="grid gap-md lg:grid-cols-3">
+        <div className="grid gap-3 lg:grid-cols-3">
           <Card>
-            <CardBody className="space-y-xs">
+            <CardBody className="space-y-1">
               <p className="font-mono text-label-md uppercase text-primary">Le front calcule-t-il ?</p>
               <p className="text-body-sm text-on-surface-variant">
                 Non. Éphémérides, horizon et visibilité sont produits par l&apos;API. Le front formate,
@@ -90,7 +90,7 @@ export default function DocumentationPage() {
             </CardBody>
           </Card>
           <Card>
-            <CardBody className="space-y-xs">
+            <CardBody className="space-y-1">
               <p className="font-mono text-label-md uppercase text-primary">Horodatage</p>
               <p className="text-body-sm text-on-surface-variant">
                 Toutes les dates sont en UTC au format <span className="font-mono">YYYY-MM-DD HH:mm UTC</span>.
@@ -99,7 +99,7 @@ export default function DocumentationPage() {
             </CardBody>
           </Card>
           <Card>
-            <CardBody className="space-y-xs">
+            <CardBody className="space-y-1">
               <p className="font-mono text-label-md uppercase text-primary">Données de démonstration</p>
               <p className="text-body-sm text-on-surface-variant">
                 Le bandeau « Données de démonstration » reste affiché tant que{" "}

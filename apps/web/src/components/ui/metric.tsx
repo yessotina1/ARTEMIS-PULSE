@@ -30,8 +30,8 @@ export function Metric({
     typeof value === "number" ? formatNumber(value, digits) : value?.toString() || "—";
 
   return (
-    <div className={cn("flex flex-col gap-xs", className)}>
-      <p className="flex items-center gap-xs font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+    <div className={cn("flex flex-col gap-1", className)}>
+      <p className="flex items-center gap-1 font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
         {icon}
         {label}
       </p>

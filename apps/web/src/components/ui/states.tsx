@@ -15,15 +15,15 @@ export function LoadingState({
   className?: string;
 }) {
   return (
-    <Card className={cn("p-md", className)} aria-busy="true" aria-live="polite">
-      <p className="flex items-center gap-sm font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+    <Card className={cn("p-3", className)} aria-busy="true" aria-live="polite">
+      <p className="flex items-center gap-2 font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
         <span
           aria-hidden
           className="size-3.5 animate-spin rounded-full border border-primary border-t-transparent"
         />
         {label}
       </p>
-      <div className="mt-md space-y-sm" aria-hidden>
+      <div className="mt-3 space-y-2" aria-hidden>
         {Array.from({ length: rows }).map((_, index) => (
           <div
             key={index}
@@ -49,15 +49,15 @@ export function EmptyState({
   className?: string;
 }) {
   return (
-    <Card className={cn("flex flex-col items-center gap-sm p-xl text-center", className)}>
-      <span className="rounded-full border border-outline-variant p-sm text-on-surface-variant">
+    <Card className={cn("flex flex-col items-center gap-2 p-8 text-center", className)}>
+      <span className="rounded-full border border-outline-variant p-2 text-on-surface-variant">
         <Icon name={icon} size={20} />
       </span>
       <h2 className="text-headline-sm font-heading">{title}</h2>
       {description ? (
         <p className="max-w-md text-body-md text-on-surface-variant">{description}</p>
       ) : null}
-      {action ? <div className="mt-sm">{action}</div> : null}
+      {action ? <div className="mt-2">{action}</div> : null}
     </Card>
   );
 }
@@ -78,20 +78,20 @@ export function ErrorState({
   className?: string;
 }) {
   return (
-    <Card accent="occulted" className={cn("p-md", className)} role="alert">
-      <div className="flex items-start gap-sm">
+    <Card accent="occulted" className={cn("p-3", className)} role="alert">
+      <div className="flex items-start gap-2">
         <Icon name="alert-triangle" size={18} className="mt-0.5 shrink-0 text-error" />
         <div className="min-w-0 flex-1">
           <h2 className="text-headline-sm font-heading">{title}</h2>
-          <p className="mt-xs text-body-md text-on-surface-variant">
+          <p className="mt-1 text-body-md text-on-surface-variant">
             {message ?? "Une erreur est survenue. Réessayez dans quelques instants."}
           </p>
-          <p className="mt-sm flex flex-wrap gap-md font-mono text-label-sm text-on-surface-variant">
+          <p className="mt-2 flex flex-wrap gap-3 font-mono text-label-sm text-on-surface-variant">
             {code ? <span>code : {code}</span> : null}
             {requestId ? <span>requestId : {requestId}</span> : null}
           </p>
           {onRetry ? (
-            <Button variant="secondary" size="sm" className="mt-sm" onClick={onRetry}>
+            <Button variant="secondary" size="sm" className="mt-2" onClick={onRetry}>
               Réessayer
             </Button>
           ) : null}
@@ -111,7 +111,7 @@ export function PartialDataNotice({
   return (
     <div
       className={cn(
-        "flex items-start gap-sm rounded border border-quality-low/40 bg-quality-low-soft/20 px-md py-sm text-body-sm text-quality-low",
+        "flex items-start gap-2 rounded border border-quality-low/40 bg-quality-low-soft/20 px-3 py-2 text-body-sm text-quality-low",
         className,
       )}
       role="status"

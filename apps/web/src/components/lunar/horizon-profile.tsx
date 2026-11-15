@@ -20,7 +20,7 @@ export function HorizonProfileChart({
 }) {
   if (samples.length === 0) {
     return (
-      <p className="rounded border border-grid bg-container-low p-md text-body-sm text-on-surface-variant">
+      <p className="rounded border border-grid bg-container-low p-3 text-body-sm text-on-surface-variant">
         Profil d&apos;horizon indisponible pour ce site.
       </p>
     );
@@ -65,8 +65,7 @@ export function HorizonProfileChart({
             x={x(azimuth)}
             y={height - 6}
             textAnchor="middle"
-            fontSize="12"
-            className="fill-[#bcc9cd] font-mono"
+            className={cn("fill-[#bcc9cd] font-mono text-[22px] lg:text-[12px]")}
           >
             {azimuth}°
           </text>
@@ -84,10 +83,10 @@ export function HorizonProfileChart({
           strokeOpacity="0.8"
         />
       ))}
-      <text x={4} y={y(0) - 4} fontSize="12" className="fill-[#bcc9cd] font-mono">
+      <text x={4} y={y(0) - 4} className={cn("fill-[#bcc9cd] font-mono text-[22px] lg:text-[12px]")}>
         0°
       </text>
-      <text x={4} y={y(maxElevation) + 10} fontSize="12" className="fill-[#bcc9cd] font-mono">
+      <text x={4} y={y(maxElevation) + 10} className={cn("fill-[#bcc9cd] font-mono text-[22px] lg:text-[12px]")}>
         {maxElevation.toFixed(0)}°
       </text>
       <path d={area} fill="#4cd7f6" fillOpacity="0.12" />
@@ -111,8 +110,7 @@ export function HorizonProfileChart({
           <text
             x={x(marker.azimuthDeg) + 6}
             y={padding.top + 9}
-            fontSize="12"
-            className="fill-[#dee2f0] font-mono"
+            className={cn("fill-[#dee2f0] font-mono text-[22px] lg:text-[12px]")}
           >
             {marker.label}
           </text>

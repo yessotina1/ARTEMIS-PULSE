@@ -162,7 +162,7 @@ export function ScenarioWizard({
   }
 
   return (
-    <div className="grid gap-md xl:grid-cols-[1fr_320px]">
+    <div className="grid gap-3 xl:grid-cols-[1fr_320px]">
       <Card>
         <CardHeader
           eyebrow="Assistant de scénario"
@@ -171,8 +171,8 @@ export function ScenarioWizard({
           actions={<Badge tone="primary">{STEPS[step].hint}</Badge>}
         />
 
-        <nav aria-label="Étapes de l'assistant" className="border-b border-outline-variant px-md py-sm">
-          <ol className="flex flex-wrap gap-xs">
+        <nav aria-label="Étapes de l'assistant" className="border-b border-outline-variant px-3 py-2">
+          <ol className="flex flex-wrap gap-1">
             {STEPS.map((item) => {
               const current = item.id === step;
               const done = item.id < step;
@@ -186,7 +186,7 @@ export function ScenarioWizard({
                     aria-current={current ? "step" : undefined}
                     disabled={item.id > step}
                     className={cn(
-                      "flex items-center gap-xs rounded border px-sm py-xs font-mono text-label-sm uppercase tracking-wider",
+                      "flex items-center gap-1 rounded border px-2 py-1 font-mono text-label-sm uppercase tracking-wider",
                       current
                         ? "border-primary/60 bg-primary/10 text-primary"
                         : done
@@ -203,15 +203,15 @@ export function ScenarioWizard({
           </ol>
         </nav>
 
-        <CardBody className="space-y-md">
+        <CardBody className="space-y-3">
           {Object.keys(errors).length > 0 ? (
-            <p role="alert" className="rounded border border-error/50 bg-error-container/30 px-sm py-xs text-body-sm text-error">
+            <p role="alert" className="rounded border border-error/50 bg-error-container/30 px-2 py-1 text-body-sm text-error">
               Corrigez les champs signalés pour continuer.
             </p>
           ) : null}
 
           {step === 0 ? (
-            <div className="space-y-md">
+            <div className="space-y-3">
               <Field label="Nom du scénario" htmlFor="scenario-name" required error={errors.name}>
                 <Input
                   id="scenario-name"
@@ -222,17 +222,17 @@ export function ScenarioWizard({
               </Field>
 
               <fieldset>
-                <legend className="mb-xs font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+                <legend className="mb-1 font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
                   Site cible <span aria-hidden className="text-primary">*</span>
                 </legend>
-                <div className="grid gap-xs sm:grid-cols-2">
+                <div className="grid gap-1 sm:grid-cols-2">
                   {filteredSites.map((site) => {
                     const active = site.id === values.siteId;
                     return (
                       <label
                         key={site.id}
                         className={cn(
-                          "flex cursor-pointer items-start gap-sm rounded border px-sm py-xs",
+                          "flex cursor-pointer items-start gap-2 rounded border px-2 py-1",
                           active
                             ? "border-primary/60 bg-primary/10"
                             : "border-grid hover:border-outline-variant hover:bg-container-high",
@@ -247,7 +247,7 @@ export function ScenarioWizard({
                           className="mt-1 accent-primary"
                         />
                         <span className="min-w-0">
-                          <span className="flex flex-wrap items-center gap-xs">
+                          <span className="flex flex-wrap items-center gap-1">
                             <span className="text-body-md text-on-surface">{site.name}</span>
                             <QualityBadge value={site.quality} />
                           </span>
@@ -269,14 +269,14 @@ export function ScenarioWizard({
                   })}
                 </div>
                 {errors.siteId ? (
-                  <p role="alert" className="mt-xs text-body-sm text-error">{errors.siteId}</p>
+                  <p role="alert" className="mt-1 text-body-sm text-error">{errors.siteId}</p>
                 ) : null}
               </fieldset>
             </div>
           ) : null}
 
           {step === 1 ? (
-            <div className="grid gap-md sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field
                 label="Début (UTC)"
                 htmlFor="window-start"
@@ -311,21 +311,21 @@ export function ScenarioWizard({
                   onChange={(event) => update("stepSeconds", Number(event.target.value))}
                 />
               </Field>
-              <div className="rounded border border-grid bg-container-low p-sm">
+              <div className="rounded border border-grid bg-container-low p-2">
                 <p className="font-mono text-label-md uppercase text-on-surface-variant">
                   Volume de calcul
                 </p>
-                <p className="mt-xs font-mono text-data-display tabular text-on-surface">
+                <p className="mt-1 font-mono text-data-display tabular text-on-surface">
                   {stepCountLabel(steps)}
                 </p>
                 {steps > WARNING_STEPS ? (
-                  <p className="mt-xs flex items-start gap-xs text-body-sm text-quality-low">
+                  <p className="mt-1 flex items-start gap-1 text-body-sm text-quality-low">
                     <Icon name="alert-triangle" size={14} className="mt-0.5 shrink-0" />
                     Volume important : le calcul peut dépasser plusieurs minutes. Réduisez la
                     période ou augmentez le pas.
                   </p>
                 ) : (
-                  <p className="mt-xs text-body-sm text-on-surface-variant">
+                  <p className="mt-1 text-body-sm text-on-surface-variant">
                     Volume compatible avec un calcul interactif.
                   </p>
                 )}
@@ -334,7 +334,7 @@ export function ScenarioWizard({
           ) : null}
 
           {step === 2 ? (
-            <div className="grid gap-md sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               <Field label="Nom de l'observateur" htmlFor="observer-name" required error={errors.observerName}>
                 <Input
                   id="observer-name"
@@ -363,10 +363,10 @@ export function ScenarioWizard({
                 />
               </Field>
               <fieldset className="sm:col-span-2">
-                <legend className="mb-xs font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+                <legend className="mb-1 font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
                   Mode d&apos;observation
                 </legend>
-                <div className="grid gap-xs sm:grid-cols-2">
+                <div className="grid gap-1 sm:grid-cols-2">
                   {[
                     { value: "SITE_SURFACE", label: "Surface du site", hint: "Horizon topographique local." },
                     { value: "ZENITH", label: "Zénith", hint: "Horizon dégagé, sans masque de crête." },
@@ -374,7 +374,7 @@ export function ScenarioWizard({
                     <label
                       key={option.value}
                       className={cn(
-                        "flex cursor-pointer items-start gap-sm rounded border px-sm py-xs",
+                        "flex cursor-pointer items-start gap-2 rounded border px-2 py-1",
                         values.observerMode === option.value
                           ? "border-primary/60 bg-primary/10"
                           : "border-grid hover:border-outline-variant",
@@ -402,8 +402,8 @@ export function ScenarioWizard({
           ) : null}
 
           {step === 3 ? (
-            <div className="space-y-sm">
-              <dl className="grid gap-sm sm:grid-cols-2">
+            <div className="space-y-2">
+              <dl className="grid gap-2 sm:grid-cols-2">
                 {[
                   ["Scénario", values.name],
                   ["Site", selectedSite?.name ?? values.siteId],
@@ -415,26 +415,26 @@ export function ScenarioWizard({
                   ["Hauteur", `${values.observerHeightM} m`],
                   ["Mode", values.observerMode === "ZENITH" ? "Zénith" : "Surface du site"],
                 ].map(([label, value]) => (
-                  <div key={label} className="flex items-baseline justify-between gap-sm border-b border-outline-variant/60 pb-xs">
+                  <div key={label} className="flex items-baseline justify-between gap-2 border-b border-outline-variant/60 pb-1">
                     <dt className="text-body-sm text-on-surface-variant">{label}</dt>
                     <dd className="text-right font-mono text-label-md text-on-surface">{value}</dd>
                   </div>
                 ))}
               </dl>
-              <p className="flex items-start gap-sm rounded border border-quality-low/40 bg-quality-low-soft/20 px-sm py-xs text-body-sm text-quality-low">
+              <p className="flex items-start gap-2 rounded border border-quality-low/40 bg-quality-low-soft/20 px-2 py-1 text-body-sm text-quality-low">
                 <Icon name="alert-triangle" size={14} className="mt-0.5 shrink-0" />
                 Le lancement crée un run de calcul asynchrone. Vous pourrez suivre son statut sur la
                 page d&apos;analyse ; aucun résultat partiel n&apos;est affiché.
               </p>
               {submitError ? (
-                <p role="alert" className="rounded border border-error/50 bg-error-container/30 px-sm py-xs text-body-sm text-error">
+                <p role="alert" className="rounded border border-error/50 bg-error-container/30 px-2 py-1 text-body-sm text-error">
                   {submitError}
                 </p>
               ) : null}
             </div>
           ) : null}
 
-          <div className="flex flex-wrap items-center justify-between gap-sm border-t border-outline-variant pt-sm">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-outline-variant pt-2">
             <Button variant="secondary" onClick={previous} disabled={step === 0}>
               Précédent
             </Button>
@@ -452,14 +452,14 @@ export function ScenarioWizard({
         </CardBody>
       </Card>
 
-      <aside className="space-y-md">
+      <aside className="space-y-3">
         <Card>
           <CardHeader eyebrow="Sélection" title={selectedSite?.name ?? "Aucun site"} icon={<Icon name="pin" size={16} />} />
-          <CardBody className="space-y-sm">
+          <CardBody className="space-y-2">
             {selectedSite ? (
               <>
                 <QualityBadge value={selectedSite.quality} />
-                <div className="grid grid-cols-2 gap-sm">
+                <div className="grid grid-cols-2 gap-2">
                   <Metric label="Latitude" value={selectedSite.coordinates.latitudeDeg.toFixed(3)} unit="°" />
                   <Metric label="Longitude" value={selectedSite.coordinates.longitudeDeg.toFixed(3)} unit="°" />
                   <Metric label="Altitude" value={selectedSite.coordinates.altitudeM} unit="m" />
@@ -470,7 +470,7 @@ export function ScenarioWizard({
                     digits={1}
                   />
                 </div>
-                <div className="flex flex-wrap gap-xs border-t border-outline-variant pt-sm">
+                <div className="flex flex-wrap gap-1 border-t border-outline-variant pt-2">
                   <VisibilityBadge value="FULL" variant="compact" />
                   <Badge tone="neutral">DEM {selectedSite.dem.resolutionM ?? "—"} m/px</Badge>
                 </div>
@@ -486,7 +486,7 @@ export function ScenarioWizard({
         </Card>
 
         <Card>
-          <CardBody className="space-y-xs">
+          <CardBody className="space-y-1">
             <p className="font-mono text-label-md uppercase text-on-surface-variant">Profil</p>
             <p className="text-body-sm text-on-surface-variant">{PROFILE_HINT[profile]}</p>
             <Link href="/parametres" className="font-mono text-label-sm text-primary hover:underline">

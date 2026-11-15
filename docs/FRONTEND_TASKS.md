@@ -46,6 +46,12 @@ Dernière mise à jour : 15 novembre 2026 — 15/15 tâches livrées.
 - **Téléchargement de rapports** : export JSON local de démonstration, faute de route API.
 - Aucun test end-to-end ni audit d'accessibilité automatisé n'a été exécuté (hors périmètre demandé).
 
+## Passe de correction
+
+Une revue du rendu a suivi les 15 tâches : jetons d'espacement qui écrasaient `max-w-*`,
+`<p>` imbriqué de `DemoBanner`, appel Cesium invalide, valeurs codées en dur remplacées par les
+données de l'API, débordement mobile du tableau de bord. Détail dans `docs/FRONTEND_BLOCKERS.md`.
+
 ## Hypothèses d'API (à valider avec l'équipe)
 
 Base : `/api/v1`. Dates ISO 8601 UTC. Les types de `src/types` font foi.

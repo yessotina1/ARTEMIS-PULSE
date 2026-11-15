@@ -5,7 +5,7 @@ export default function PublicLayout({ children }: LayoutProps<"/">) {
     <div className="flex min-h-screen flex-col">
       <a
         href="#contenu"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-primary focus:px-sm focus:py-xs focus:font-mono focus:text-on-primary"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-primary focus:px-2 focus:py-1 focus:font-mono focus:text-on-primary"
       >
         Aller au contenu
       </a>

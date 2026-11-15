@@ -50,11 +50,11 @@ export function SignupForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-md">
+    <form onSubmit={handleSubmit} noValidate className="space-y-3">
       {error ? (
         <p
           role="alert"
-          className="rounded border border-error/50 bg-error-container/30 px-sm py-xs text-body-sm text-error"
+          className="rounded border border-error/50 bg-error-container/30 px-2 py-1 text-body-sm text-error"
         >
           {error}
         </p>
@@ -64,14 +64,14 @@ export function SignupForm() {
         <legend className="font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
           Profil
         </legend>
-        <div className="mt-xs grid gap-xs">
+        <div className="mt-1 grid gap-1">
           {PROFILES.map((item) => {
             const selected = profile === item.value;
             return (
               <label
                 key={item.value}
                 className={cn(
-                  "flex cursor-pointer items-start gap-sm rounded border px-sm py-xs",
+                  "flex cursor-pointer items-start gap-2 rounded border px-2 py-1",
                   selected
                     ? "border-primary/60 bg-primary/10"
                     : "border-grid hover:border-outline-variant hover:bg-container-high",

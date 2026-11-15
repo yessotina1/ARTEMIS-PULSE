@@ -16,7 +16,7 @@ import {
   Timestamp,
   VisibilityBadge,
 } from "@/components/ui";
-import { formatElevation, formatPercent } from "@/lib/format";
+import { formatElevation } from "@/lib/format";
 import type { SiteDetail } from "@/types";
 
 // Route bloquante : données de démonstration chargées côté serveur.
@@ -50,9 +50,9 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
   return (
     <>
       <div className="border-b border-outline-variant bg-container-low">
-        <div className="mx-auto max-w-6xl px-margin-mobile py-lg md:px-margin">
-          <nav aria-label="Fil d'Ariane" className="mb-sm">
-            <ol className="flex items-center gap-xs font-mono text-label-sm text-on-surface-variant">
+        <div className="mx-auto max-w-6xl px-margin-mobile py-5 md:px-margin">
+          <nav aria-label="Fil d'Ariane" className="mb-2">
+            <ol className="flex items-center gap-1 font-mono text-label-sm text-on-surface-variant">
               <li>
                 <Link href="/" className="hover:text-on-surface hover:underline">
                   Accueil
@@ -64,23 +64,23 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
               <li aria-current="page">Fiche publique</li>
             </ol>
           </nav>
-          <div className="flex flex-wrap items-start justify-between gap-md">
+          <div className="flex flex-wrap items-start justify-between gap-3">
             <div>
               <p className="font-mono text-label-md uppercase tracking-widest text-primary">
                 {site.mission} · {site.designation}
               </p>
-              <h1 className="mt-xs text-headline-xl font-heading">{site.name}</h1>
-              <p className="mt-xs max-w-2xl text-body-lg text-on-surface-variant">
+              <h1 className="mt-1 text-headline-xl font-heading">{site.name}</h1>
+              <p className="mt-1 max-w-2xl text-body-lg text-on-surface-variant">
                 {site.description}
               </p>
-              <div className="mt-sm flex flex-wrap gap-xs">
+              <div className="mt-2 flex flex-wrap gap-1">
                 <Badge tone="primary">{site.category}</Badge>
                 <QualityBadge value={site.quality} />
                 <VisibilityBadge value={site.referenceState.sunVisibility} />
                 <VisibilityBadge value={site.referenceState.earthVisibility} />
               </div>
             </div>
-            <div className="flex flex-col gap-sm">
+            <div className="flex flex-col gap-2">
               <Link href="/demo">
                 <Button>Voir l&apos;analyse de démonstration</Button>
               </Link>
@@ -92,7 +92,7 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl space-y-md px-margin-mobile py-lg md:px-margin">
+      <div className="mx-auto max-w-6xl space-y-3 px-margin-mobile py-5 md:px-margin">
         {site.dem.status !== "FULL" ? (
           <PartialDataNotice
             message={
@@ -103,14 +103,14 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
           />
         ) : null}
 
-        <div className="grid gap-md lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr]">
           <Card>
             <CardHeader
               eyebrow="Coordonnées géodésiques"
               title="Position et modèle de terrain"
               icon={<Icon name="pin" size={16} />}
             />
-            <CardBody className="grid gap-md sm:grid-cols-2">
+            <CardBody className="grid gap-3 sm:grid-cols-2">
               <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" hint="Négative = hémisphère sud" />
               <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
               <Metric label="Altitude MOLA" value={site.coordinates.altitudeM} unit="m" />
@@ -124,11 +124,11 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
                       : "Absente"
                 }
               />
-              <div className="sm:col-span-2 border-t border-outline-variant pt-sm">
+              <div className="sm:col-span-2 border-t border-outline-variant pt-2">
                 <p className="font-mono text-label-sm uppercase text-on-surface-variant">
                   Éphéméride de référence
                 </p>
-                <Timestamp value={site.referenceEphemerisUtc} variant="block" className="mt-xs" />
+                <Timestamp value={site.referenceEphemerisUtc} variant="block" className="mt-1" />
               </div>
             </CardBody>
           </Card>
@@ -139,15 +139,15 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
               title="Soleil et Terre"
               icon={<Icon name="sun" size={16} />}
             />
-            <CardBody className="space-y-md">
+            <CardBody className="space-y-3">
               <div>
-                <div className="mb-xs flex items-center justify-between">
-                  <span className="flex items-center gap-xs font-mono text-label-md uppercase text-on-surface-variant">
+                <div className="mb-1 flex items-center justify-between">
+                  <span className="flex items-center gap-1 font-mono text-label-md uppercase text-on-surface-variant">
                     <Icon name="sun" size={13} /> Soleil
                   </span>
                   <VisibilityBadge value={site.referenceState.sunVisibility} variant="compact" />
                 </div>
-                <div className="grid grid-cols-2 gap-sm">
+                <div className="grid grid-cols-2 gap-2">
                   <Metric label="Azimut" value={site.referenceState.sun.azimuthDeg.toFixed(2)} unit="°" />
                   <Metric
                     label="Élévation"
@@ -155,18 +155,18 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
                     hint="Signée"
                   />
                 </div>
-                <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+                <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
                   Flux incident : {site.referenceState.solarFluxWm2} W/m²
                 </p>
               </div>
-              <div className="border-t border-outline-variant pt-sm">
-                <div className="mb-xs flex items-center justify-between">
-                  <span className="flex items-center gap-xs font-mono text-label-md uppercase text-on-surface-variant">
+              <div className="border-t border-outline-variant pt-2">
+                <div className="mb-1 flex items-center justify-between">
+                  <span className="flex items-center gap-1 font-mono text-label-md uppercase text-on-surface-variant">
                     <Icon name="earth" size={13} /> Terre
                   </span>
                   <VisibilityBadge value={site.referenceState.earthVisibility} variant="compact" />
                 </div>
-                <div className="grid grid-cols-2 gap-sm">
+                <div className="grid grid-cols-2 gap-2">
                   <Metric label="Azimut" value={site.referenceState.earth.azimuthDeg.toFixed(2)} unit="°" />
                   <Metric
                     label="Élévation"
@@ -178,7 +178,7 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
           </Card>
         </div>
 
-        <div className="grid gap-md md:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-3">
           <Card>
             <CardBody>
               <Metric
@@ -201,12 +201,14 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
             </CardBody>
           </Card>
           <Card>
-            <CardBody>
-              <Metric
-                label="Qualité du calcul"
-                value={formatPercent(site.illuminationPercent, 1)}
-                hint={`Niveau ${site.quality}`}
-              />
+            <CardBody className="space-y-1">
+              <p className="font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+                Qualité du calcul
+              </p>
+              <QualityBadge value={site.quality} />
+              <p className="text-body-sm text-on-surface-variant">
+                Résultat produit par l&apos;API, affiché sans recalcul côté navigateur.
+              </p>
             </CardBody>
           </Card>
         </div>
@@ -224,7 +226,7 @@ export default async function PublicSitePage({ params }: PageProps<"/sites/[slug
           href="/documentation"
         />
 
-        <div className="flex flex-wrap items-center justify-between gap-sm rounded border border-outline-variant bg-container-low p-md">
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded border border-outline-variant bg-container-low p-3">
           <p className="text-body-sm text-on-surface-variant">
             Source {site.referenceState.source.source} · version {site.referenceState.source.version}.
             Résultat produit par l&apos;API, affiché sans recalcul côté navigateur.

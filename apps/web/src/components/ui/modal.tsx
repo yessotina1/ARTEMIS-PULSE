@@ -87,13 +87,13 @@ export function Modal({
           widths[width],
         )}
       >
-        <div className="flex items-start justify-between gap-sm border-b border-outline-variant px-md py-sm">
+        <div className="flex items-start justify-between gap-2 border-b border-outline-variant px-3 py-2">
           <div>
             <h2 id="modal-title" className="text-headline-sm font-heading">
               {title}
             </h2>
             {description ? (
-              <p id="modal-description" className="mt-xs text-body-sm text-on-surface-variant">
+              <p id="modal-description" className="mt-1 text-body-sm text-on-surface-variant">
                 {description}
               </p>
             ) : null}
@@ -102,14 +102,14 @@ export function Modal({
             type="button"
             onClick={onClose}
             aria-label="Fermer la fenêtre"
-            className="rounded p-xs text-on-surface-variant hover:bg-container-highest hover:text-on-surface"
+            className="rounded p-1 text-on-surface-variant hover:bg-container-highest hover:text-on-surface"
           >
             <Icon name="close" size={16} />
           </button>
         </div>
-        <div className="p-md">{children}</div>
+        <div className="p-3">{children}</div>
         {footer ? (
-          <div className="flex justify-end gap-sm border-t border-outline-variant px-md py-sm">
+          <div className="flex justify-end gap-2 border-t border-outline-variant px-3 py-2">
             {footer}
           </div>
         ) : null}

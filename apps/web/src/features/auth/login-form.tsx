@@ -35,11 +35,11 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-md">
+    <form onSubmit={handleSubmit} noValidate className="space-y-3">
       {error ? (
         <p
           role="alert"
-          className="rounded border border-error/50 bg-error-container/30 px-sm py-xs text-body-sm text-error"
+          className="rounded border border-error/50 bg-error-container/30 px-2 py-1 text-body-sm text-error"
         >
           {error}
         </p>
@@ -68,7 +68,7 @@ export function LoginForm() {
         />
       </Field>
 
-      <div className="flex items-center justify-between gap-sm">
+      <div className="flex items-center justify-between gap-2">
         <Link
           href="/mot-de-passe-oublie"
           className="font-mono text-label-md text-primary hover:underline"

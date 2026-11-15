@@ -39,21 +39,21 @@ export default async function DemoPage() {
   const sample = series.points[Math.floor(series.points.length / 3)];
 
   return (
-    <div className="mx-auto max-w-6xl space-y-md px-margin-mobile py-lg md:px-margin">
-      <div className="flex flex-wrap items-start justify-between gap-sm">
+    <div className="mx-auto max-w-6xl space-y-3 px-margin-mobile py-5 md:px-margin">
+      <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <div className="flex flex-wrap items-center gap-sm">
+          <div className="flex flex-wrap items-center gap-2">
             <Badge tone="primary">Mode invité</Badge>
             <DemoBanner />
             <QualityBadge value={run.quality} />
           </div>
-          <h1 className="mt-sm text-headline-xl font-heading">{scenario.name}</h1>
-          <p className="mt-xs max-w-2xl text-body-md text-on-surface-variant">
+          <h1 className="mt-2 text-headline-xl font-heading">{scenario.name}</h1>
+          <p className="mt-1 max-w-2xl text-body-md text-on-surface-variant">
             Analyse de démonstration rejouée depuis un run terminé : illumination et visibilité
             géométrique de la Terre sur la fenêtre du scénario. Aucun compte requis.
           </p>
         </div>
-        <div className="flex flex-col gap-sm sm:flex-row">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <Link href="/inscription">
             <Button>Créer un compte pour lancer vos analyses</Button>
           </Link>
@@ -75,7 +75,7 @@ export default async function DemoPage() {
             </>
           }
         />
-        <CardBody className="grid gap-md md:grid-cols-4">
+        <CardBody className="grid gap-3 md:grid-cols-4">
           <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
           <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
           <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
@@ -83,17 +83,17 @@ export default async function DemoPage() {
         </CardBody>
       </Card>
 
-      <div className="grid gap-md md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         <Card accent="primary">
           <CardHeader eyebrow="Soleil" title="Visibilité et flux" icon={<Icon name="sun" size={16} />} />
-          <CardBody className="space-y-sm">
+          <CardBody className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-mono text-label-sm uppercase text-on-surface-variant">
                 Au tiers de la fenêtre
               </span>
               <VisibilityBadge value={sample.sun.visibility} variant="compact" />
             </div>
-            <div className="grid grid-cols-3 gap-sm">
+            <div className="grid grid-cols-3 gap-2">
               <Metric label="Azimut" value={sample.sun.azimuthDeg.toFixed(2)} unit="°" />
               <Metric label="Élévation" value={formatElevation(sample.sun.elevationDeg)} />
               <Metric label="Flux" value={sample.solarFluxWm2} unit="W/m²" />
@@ -107,14 +107,14 @@ export default async function DemoPage() {
 
         <Card accent="partial">
           <CardHeader eyebrow="Terre" title="Visibilité géométrique" icon={<Icon name="earth" size={16} />} />
-          <CardBody className="space-y-sm">
+          <CardBody className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-mono text-label-sm uppercase text-on-surface-variant">
                 Au tiers de la fenêtre
               </span>
               <VisibilityBadge value={sample.earth.visibility} variant="compact" />
             </div>
-            <div className="grid grid-cols-2 gap-sm">
+            <div className="grid grid-cols-2 gap-2">
               <Metric label="Azimut" value={sample.earth.azimuthDeg.toFixed(2)} unit="°" />
               <Metric label="Élévation" value={formatElevation(sample.earth.elevationDeg)} />
             </div>
@@ -125,13 +125,13 @@ export default async function DemoPage() {
         </Card>
       </div>
 
-      <div className="grid gap-md md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         <Card>
           <CardHeader title="Fenêtres d'illumination" eyebrow="Soleil" />
           <CardBody>
             <ul className="divide-y divide-outline-variant/60 font-mono text-label-md">
               {sunWindows.map((window) => (
-                <li key={window.id} className="flex flex-wrap items-center justify-between gap-xs py-xs">
+                <li key={window.id} className="flex flex-wrap items-center justify-between gap-1 py-1">
                   <Timestamp value={window.startsAtUtc} />
                   <span className="text-on-surface-variant">→</span>
                   <Timestamp value={window.endsAtUtc} />
@@ -147,7 +147,7 @@ export default async function DemoPage() {
           <CardBody>
             <ul className="divide-y divide-outline-variant/60 font-mono text-label-md">
               {earthWindows.map((window) => (
-                <li key={window.id} className="flex flex-wrap items-center justify-between gap-xs py-xs">
+                <li key={window.id} className="flex flex-wrap items-center justify-between gap-1 py-1">
                   <Timestamp value={window.startsAtUtc} />
                   <span className="text-on-surface-variant">→</span>
                   <Timestamp value={window.endsAtUtc} />
@@ -167,7 +167,7 @@ export default async function DemoPage() {
         href="/documentation"
       />
 
-      <div className="flex flex-wrap items-center justify-between gap-sm rounded border border-primary/30 bg-primary/5 p-md">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded border border-primary/30 bg-primary/5 p-3">
         <div>
           <p className="font-heading text-headline-sm">Passez en mode planificateur</p>
           <p className="text-body-sm text-on-surface-variant">

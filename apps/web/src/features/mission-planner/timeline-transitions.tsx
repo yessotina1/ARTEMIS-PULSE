@@ -26,8 +26,8 @@ export function TimelineTransitions({
   }
 
   return (
-    <div className={cn("border-t border-outline-variant pt-sm", className)}>
-      <p className="mb-xs font-mono text-label-sm uppercase text-on-surface-variant">
+    <div className={cn("border-t border-outline-variant pt-2", className)}>
+      <p className="mb-1 font-mono text-label-sm uppercase text-on-surface-variant">
         Marqueurs de transition ({transitions.length})
       </p>
       {transitions.length === 0 ? (
@@ -35,13 +35,13 @@ export function TimelineTransitions({
           Aucune transition de visibilité sur cette fenêtre.
         </p>
       ) : (
-        <ul className="flex flex-wrap gap-xs">
+        <ul className="flex flex-wrap gap-1">
           {transitions.map((window) => (
             <li key={`marker-${window.id}`}>
               <button
                 type="button"
                 onClick={() => goTo(window.startsAtUtc)}
-                className="flex items-center gap-xs rounded-sm border border-outline-variant px-xs py-0.5 font-mono text-label-sm text-on-surface-variant transition-colors hover:border-primary/50 hover:text-on-surface"
+                className="flex items-center gap-1 rounded-sm border border-outline-variant px-1 py-0.5 font-mono text-label-sm text-on-surface-variant transition-colors hover:border-primary/50 hover:text-on-surface"
                 title={`${window.body === "SUN" ? "Soleil" : "Terre"} — ${
                   window.transition === "ENTER" ? "entrée en visibilité" : "sortie de visibilité"
                 }`}

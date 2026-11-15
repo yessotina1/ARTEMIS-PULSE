@@ -87,9 +87,9 @@ export function CatalogueView() {
   }
 
   return (
-    <div className="space-y-md">
+    <div className="space-y-3">
       <Card>
-        <CardBody className="grid gap-sm md:grid-cols-[1.6fr_1fr_1fr]">
+        <CardBody className="grid gap-2 md:grid-cols-[1.6fr_1fr_1fr]">
           <Field label="Rechercher" htmlFor="catalogue-search">
             <Input
               id="catalogue-search"
@@ -116,7 +116,7 @@ export function CatalogueView() {
             />
           </Field>
         </CardBody>
-        <div className="flex flex-wrap items-center justify-between gap-sm border-t border-outline-variant px-md py-xs">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-outline-variant px-3 py-1">
           <p className="font-mono text-label-sm text-on-surface-variant" role="status">
             {filtered.length} site(s) affiché(s) sur {sites.length} · {southPole.length} au pôle Sud
           </p>
@@ -129,7 +129,7 @@ export function CatalogueView() {
         </div>
       </Card>
 
-      <div className="grid gap-md xl:grid-cols-[1.6fr_1fr]">
+      <div className="grid gap-3 xl:grid-cols-[1.6fr_1fr]">
         <Card className="min-w-0">
           <CardHeader
             eyebrow="Catalogue IAU / NASA LRO"
@@ -159,18 +159,18 @@ export function CatalogueView() {
               />
             </CardBody>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
               <table className="w-full min-w-[720px] border-collapse text-left">
                 <caption className="sr-only">Sites lunaires du catalogue</caption>
                 <thead>
                   <tr className="border-b border-outline-variant font-mono text-label-sm uppercase tracking-wider text-on-surface-variant">
-                    <th scope="col" className="px-md py-xs font-medium">Site & désignation</th>
-                    <th scope="col" className="px-md py-xs font-medium">Coordonnées</th>
-                    <th scope="col" className="hidden px-md py-xs font-medium lg:table-cell">Mission</th>
-                    <th scope="col" className="px-md py-xs font-medium">Qualité</th>
-                    <th scope="col" className="px-md py-xs font-medium">DEM</th>
-                    <th scope="col" className="hidden px-md py-xs font-medium md:table-cell">Illum.</th>
-                    <th scope="col" className="px-md py-xs font-medium">
+                    <th scope="col" className="px-3 py-1 font-medium">Site & désignation</th>
+                    <th scope="col" className="px-3 py-1 font-medium">Coordonnées</th>
+                    <th scope="col" className="hidden px-3 py-1 font-medium lg:table-cell">Mission</th>
+                    <th scope="col" className="px-3 py-1 font-medium">Qualité</th>
+                    <th scope="col" className="px-3 py-1 font-medium">DEM</th>
+                    <th scope="col" className="hidden px-3 py-1 font-medium md:table-cell">Illum.</th>
+                    <th scope="col" className="px-3 py-1 font-medium">
                       <span className="sr-only">Actions</span>
                     </th>
                   </tr>
@@ -190,7 +190,7 @@ export function CatalogueView() {
           )}
         </Card>
 
-        <div className="space-y-md">
+        <div className="space-y-3">
           <Card>
             <CardHeader
               eyebrow="Projection polaire sud (> 80° S)"
@@ -239,8 +239,8 @@ function SiteRow({
       }`}
       onClick={onSelect}
     >
-      <td className="px-md py-xs">
-        <div className="flex items-start gap-xs">
+      <td className="px-3 py-1">
+        <div className="flex items-start gap-1">
           <span aria-hidden className={`mt-1.5 size-1.5 shrink-0 rounded-full ${site.dem.status === "NONE" ? "bg-on-surface-variant" : "bg-tertiary"}`} />
           <div>
             <Link
@@ -255,17 +255,17 @@ function SiteRow({
           </div>
         </div>
       </td>
-      <td className="px-md py-xs font-mono text-label-md tabular text-on-surface-variant">
+      <td className="px-3 py-1 font-mono text-label-md tabular text-on-surface-variant">
         {site.coordinates.latitudeDeg.toFixed(4)}°<br />
         {site.coordinates.longitudeDeg.toFixed(4)}°
         <br />
         <span className="text-label-sm">Alt. {site.coordinates.altitudeM} m</span>
       </td>
-      <td className="hidden px-md py-xs text-body-sm text-on-surface-variant lg:table-cell">
+      <td className="hidden px-3 py-1 text-body-sm text-on-surface-variant lg:table-cell">
         {site.mission}
       </td>
-      <td className="px-md py-xs"><QualityBadge value={site.quality} /></td>
-      <td className="px-md py-xs">
+      <td className="px-3 py-1"><QualityBadge value={site.quality} /></td>
+      <td className="px-3 py-1">
         {site.dem.status === "FULL" ? (
           <Badge tone="success">{site.dem.resolutionM} m/px</Badge>
         ) : site.dem.status === "PARTIAL" ? (
@@ -274,10 +274,10 @@ function SiteRow({
           <Badge tone="danger">Absente</Badge>
         )}
       </td>
-      <td className="hidden px-md py-xs font-mono text-label-md tabular md:table-cell">
+      <td className="hidden px-3 py-1 font-mono text-label-md tabular md:table-cell">
         {site.illuminationPercent === null ? "—" : formatPercent(site.illuminationPercent, 1)}
       </td>
-      <td className="px-md py-xs">
+      <td className="px-3 py-1">
         <button
           type="button"
           onClick={(event) => {
@@ -285,7 +285,7 @@ function SiteRow({
             onSelect();
           }}
           aria-label={`Inspecter ${site.name}`}
-          className="rounded border border-grid p-xs text-on-surface-variant hover:border-primary/50 hover:text-primary"
+          className="rounded border border-grid p-1 text-on-surface-variant hover:border-primary/50 hover:text-primary"
         >
           <Icon name="search" size={13} />
         </button>
@@ -303,11 +303,11 @@ function SiteInspection({ site }: { site: SiteSummary }) {
         icon={<Icon name="pin" size={16} />}
         actions={<QualityBadge value={site.quality} />}
       />
-      <CardBody className="space-y-sm">
+      <CardBody className="space-y-2">
         <p className="font-mono text-label-sm text-on-surface-variant">
           {site.designation} · classe {CATEGORY_LABELS[site.category]}
         </p>
-        <div className="grid grid-cols-2 gap-sm">
+        <div className="grid grid-cols-2 gap-2">
           <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
           <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
           <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
@@ -319,7 +319,7 @@ function SiteInspection({ site }: { site: SiteSummary }) {
           />
         </div>
         {site.dem.status !== "FULL" ? (
-          <p className="rounded border border-quality-low/40 bg-quality-low-soft/20 px-sm py-xs text-body-sm text-quality-low">
+          <p className="rounded border border-quality-low/40 bg-quality-low-soft/20 px-2 py-1 text-body-sm text-quality-low">
             <Icon name="alert-triangle" size={13} className="mr-1 inline" />
             {site.dem.status === "PARTIAL"
               ? `Couverture DEM partielle (${site.dem.resolutionM ?? "?"} m/px) : fenêtres d'occultation estimées.`
@@ -330,7 +330,7 @@ function SiteInspection({ site }: { site: SiteSummary }) {
             Couverture DEM complète — résolution {site.dem.resolutionM} m/px.
           </p>
         )}
-        <div className="flex flex-wrap gap-sm border-t border-outline-variant pt-sm">
+        <div className="flex flex-wrap gap-2 border-t border-outline-variant pt-2">
           <Link href={`/catalogue/${site.id}`}>
             <Button size="sm">Fiche détaillée</Button>
           </Link>

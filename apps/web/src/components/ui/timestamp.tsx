@@ -25,7 +25,7 @@ export function Timestamp({
 
   if (variant === "block") {
     return (
-      <span className={cn("flex items-center gap-sm", className)}>
+      <span className={cn("flex items-center gap-2", className)}>
         <Icon name="clock" size={14} className="text-on-surface-variant" />
         <time dateTime={new Date(value).toISOString()} className="font-mono text-label-lg tabular">
           {formatted}

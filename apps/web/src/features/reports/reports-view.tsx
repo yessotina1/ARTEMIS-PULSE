@@ -93,13 +93,13 @@ export function ReportsView() {
   }
 
   return (
-    <div className="space-y-md">
+    <div className="space-y-3">
       <Card>
-        <CardBody className="flex flex-wrap items-end justify-between gap-sm">
+        <CardBody className="flex flex-wrap items-end justify-between gap-2">
           <div className="min-w-56">
             <label
               htmlFor="report-kind"
-              className="mb-xs block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
+              className="mb-1 block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
             >
               Filtrer par type
             </label>
@@ -128,7 +128,7 @@ export function ReportsView() {
           }
         />
       ) : (
-        <div className="grid gap-md md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {reports.map((report) => (
             <Card key={report.id} accent={report.status === "FAILED" ? "occulted" : "none"}>
               <CardHeader
@@ -137,13 +137,13 @@ export function ReportsView() {
                 icon={<Icon name="file" size={16} />}
                 actions={<Badge tone={STATUS_TONES[report.status]}>{STATUS_LABELS[report.status]}</Badge>}
               />
-              <CardBody className="space-y-sm">
-                <div className="flex flex-wrap items-center gap-xs">
+              <CardBody className="space-y-2">
+                <div className="flex flex-wrap items-center gap-1">
                   <QualityBadge value={report.quality} />
                   <Badge tone="neutral">{formatSize(report.sizeBytes)}</Badge>
                   <Badge tone="neutral">{report.author}</Badge>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-xs border-t border-outline-variant/60 pt-xs font-mono text-label-sm text-on-surface-variant">
+                <div className="flex flex-wrap items-center justify-between gap-1 border-t border-outline-variant/60 pt-1 font-mono text-label-sm text-on-surface-variant">
                   <Timestamp value={report.createdAt} variant="compact" />
                   <span>{report.id}</span>
                 </div>
@@ -152,7 +152,7 @@ export function ReportsView() {
                   <br />
                   Sites : {report.siteIds.join(", ") || "—"}
                 </p>
-                <div className="flex flex-wrap gap-sm border-t border-outline-variant pt-sm">
+                <div className="flex flex-wrap gap-2 border-t border-outline-variant pt-2">
                   <Button
                     size="sm"
                     variant="secondary"
@@ -176,9 +176,9 @@ export function ReportsView() {
 
       <Card>
         <CardHeader eyebrow="Statuts" title="Files de génération" icon={<Icon name="clock" size={16} />} />
-        <CardBody className="flex flex-wrap gap-sm">
+        <CardBody className="flex flex-wrap gap-2">
           {(["READY", "GENERATING", "FAILED"] as ReportStatus[]).map((status) => (
-            <span key={status} className="flex items-center gap-xs font-mono text-label-sm text-on-surface-variant">
+            <span key={status} className="flex items-center gap-1 font-mono text-label-sm text-on-surface-variant">
               <Badge tone={STATUS_TONES[status]}>{STATUS_LABELS[status]}</Badge>
               {(reportsQuery.data ?? []).filter((report) => report.status === status).length}
             </span>

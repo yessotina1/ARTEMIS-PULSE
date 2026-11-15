@@ -64,14 +64,12 @@ export default function CesiumGlobe({
         selectionIndicator: false,
         fullscreenButton: false,
         creditContainer: document.createElement("div"),
+        requestRenderMode: true,
+        maximumRenderTimeChange: Number.POSITIVE_INFINITY,
       });
 
       viewer.scene.backgroundColor = Cesium.Color.fromCssColorString("#090e17");
-      viewer.scene.traverse((object: { material?: { alpha?: number } }) => {
-        if (object.material && typeof object.material.alpha === "number") {
-          object.material.alpha = 0.6;
-        }
-      });
+      viewer.scene.globe.showGroundAtmosphere = false;
 
       for (const site of sitesRef.current) {
         viewer.entities.add({
@@ -125,8 +123,20 @@ export default function CesiumGlobe({
 
     return () => {
       destroyed = true;
-      handler?.destroy();
-      if (viewer && !viewer.isDestroyed()) viewer.destroy();
+      try {
+        handler?.destroy();
+      } catch {
+        // handler déjà détruit
+      }
+      try {
+        if (viewer && !viewer.isDestroyed()) {
+          viewer.useDefaultRenderLoop = false;
+          viewer.destroy();
+        }
+      } catch {
+        // contexte WebGL déjà libéré
+      }
+      viewer = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -140,7 +150,7 @@ export default function CesiumGlobe({
         aria-label="Globe lunaire 3D interactif"
         role="application"
       />
-      <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+      <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
         Globe CesiumJS — ellipsoïde lunaire 1 737,4 km, sans imagerie distante ni token Cesium ion.
         Sélectionnez un marqueur pour inspecter le site.
       </p>

@@ -5,14 +5,14 @@ import { USE_MOCKS } from "@/lib/env";
 export function DemoBanner({ className }: { className?: string }) {
   if (!USE_MOCKS) return null;
   return (
-    <p
+    <span
       className={cn(
-        "inline-flex items-center gap-xs font-mono text-label-sm uppercase tracking-wider text-on-surface-variant/80",
+        "inline-flex items-center gap-1 font-mono text-label-sm uppercase tracking-wider text-on-surface-variant/80",
         className,
       )}
     >
       <span aria-hidden className="size-1.5 rounded-full bg-quality-low" />
       Données de démonstration
-    </p>
+    </span>
   );
 }

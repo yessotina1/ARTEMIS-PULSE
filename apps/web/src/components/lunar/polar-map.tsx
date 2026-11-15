@@ -35,7 +35,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
     <div className={cn("relative", className)}>
       <svg
         viewBox={`0 0 ${size} ${size}`}
-        role="img"
+        role="group"
         aria-label={`Projection polaire sud, ${sites.length} sites référencés`}
         className="w-full rounded border border-outline-variant bg-container-lowest"
       >
@@ -77,8 +77,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
           x={center}
           y={center - maxRadius - 14}
           textAnchor="middle"
-          className="fill-[#bcc9cd] font-mono"
-          fontSize="12"
+          className={cn("fill-[#bcc9cd] font-mono text-[18px] lg:text-[12px]")}
         >
           0° MÉRIDIEN · VERS LA TERRE
         </text>
@@ -122,8 +121,7 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
                 <text
                   x={point.x + 9}
                   y={point.y + 4}
-                  className="fill-[#bcc9cd] font-mono"
-                  fontSize="12"
+                  className={cn("fill-[#bcc9cd] font-mono text-[18px] lg:text-[12px]")}
                 >
                   {site.name.split(" ")[0]}
                 </text>
@@ -132,14 +130,14 @@ export function PolarMap({ sites, selectedId, onSelect, variant = "preview", cla
           );
         })}
       </svg>
-      <div className="mt-xs flex flex-wrap gap-md font-mono text-label-sm text-on-surface-variant">
-        <span className="flex items-center gap-xs">
+      <div className="mt-1 flex flex-wrap gap-3 font-mono text-label-sm text-on-surface-variant">
+        <span className="flex items-center gap-1">
           <span aria-hidden className="size-2 rounded-full bg-tertiary" /> Site référencé
         </span>
-        <span className="flex items-center gap-xs">
+        <span className="flex items-center gap-1">
           <span aria-hidden className="size-2 rounded-full bg-on-surface-variant" /> DEM absente
         </span>
-        <span className="flex items-center gap-xs">
+        <span className="flex items-center gap-1">
           <span aria-hidden className="size-2 rounded-full border border-primary" /> Sélection
         </span>
       </div>

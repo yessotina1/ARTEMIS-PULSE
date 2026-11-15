@@ -61,11 +61,11 @@ export function CardHeader({
   return (
     <div
       className={cn(
-        "flex flex-wrap items-start justify-between gap-sm border-b border-outline-variant/60 px-md py-sm",
+        "flex flex-wrap items-start justify-between gap-2 border-b border-outline-variant/60 px-3 py-2",
         className,
       )}
     >
-      <div className="flex min-w-0 items-center gap-sm">
+      <div className="flex min-w-0 items-center gap-2">
         {icon ? <span className="text-primary">{icon}</span> : null}
         <div className="min-w-0">
           {eyebrow ? (
@@ -76,14 +76,14 @@ export function CardHeader({
           <h2 className="text-headline-sm font-heading leading-tight text-on-surface">{title}</h2>
         </div>
       </div>
-      {actions ? <div className="flex flex-wrap items-center gap-xs">{actions}</div> : null}
+      {actions ? <div className="flex flex-wrap items-center gap-1">{actions}</div> : null}
     </div>
   );
 }
 
 export function CardBody({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("p-md", className)} {...props}>
+    <div className={cn("p-3", className)} {...props}>
       {children}
     </div>
   );
@@ -92,7 +92,7 @@ export function CardBody({ className, children, ...props }: HTMLAttributes<HTMLD
 export function CardFooter({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn("border-t border-outline-variant/60 px-md py-sm", className)}
+      className={cn("border-t border-outline-variant/60 px-3 py-2", className)}
       {...props}
     >
       {children}

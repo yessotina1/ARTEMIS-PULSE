@@ -63,8 +63,8 @@ export function SettingsView() {
   }
 
   return (
-    <div className="space-y-md">
-      <div className="grid gap-md lg:grid-cols-[1fr_320px]">
+    <div className="space-y-3">
+      <div className="grid gap-3 lg:grid-cols-[1fr_320px]">
         <Card>
           <CardHeader
             eyebrow="Profil"
@@ -73,16 +73,16 @@ export function SettingsView() {
             actions={session ? <Badge tone="success">SESSION ACTIVE</Badge> : <Badge tone="neutral">INVITÉ</Badge>}
           />
           <CardBody>
-            <form onSubmit={save} noValidate className="space-y-md">
+            <form onSubmit={save} noValidate className="space-y-3">
               {saved ? (
                 <p
                   role="status"
-                  className="rounded border border-quality-validated/40 bg-quality-validated-soft/30 px-sm py-xs text-body-sm text-quality-validated"
+                  className="rounded border border-quality-validated/40 bg-quality-validated-soft/30 px-2 py-1 text-body-sm text-quality-validated"
                 >
                   Préférences enregistrées localement (démonstration, aucune requête envoyée).
                 </p>
               ) : null}
-              <div className="grid gap-md sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <Field label="Nom complet" htmlFor="settings-name" required error={errors.fullName}>
                   <Input
                     id="settings-name"
@@ -118,15 +118,15 @@ export function SettingsView() {
               </div>
 
               <fieldset>
-                <legend className="mb-xs font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
+                <legend className="mb-1 font-mono text-label-md uppercase tracking-wider text-on-surface-variant">
                   Choix du profil
                 </legend>
-                <div className="grid gap-xs sm:grid-cols-3">
+                <div className="grid gap-1 sm:grid-cols-3">
                   {(Object.keys(PROFILE_LABELS) as UserProfileKind[]).map((item) => (
                     <label
                       key={item}
                       className={cn(
-                        "flex cursor-pointer items-center gap-sm rounded border px-sm py-xs text-body-sm",
+                        "flex cursor-pointer items-center gap-2 rounded border px-2 py-1 text-body-sm",
                         profile === item
                           ? "border-primary/60 bg-primary/10"
                           : "border-grid hover:border-outline-variant",
@@ -145,7 +145,7 @@ export function SettingsView() {
                 </div>
               </fieldset>
 
-              <div className="flex flex-wrap items-center gap-sm border-t border-outline-variant pt-sm">
+              <div className="flex flex-wrap items-center gap-2 border-t border-outline-variant pt-2">
                 <Button type="submit">Enregistrer</Button>
                 <Button variant="secondary" onClick={() => setSaved(false)}>Annuler</Button>
               </div>
@@ -153,10 +153,10 @@ export function SettingsView() {
           </CardBody>
         </Card>
 
-        <div className="space-y-md">
+        <div className="space-y-3">
           <Card>
             <CardHeader eyebrow="Affichage" title="Préférences" icon={<Icon name="sliders" size={16} />} />
-            <CardBody className="space-y-sm">
+            <CardBody className="space-y-2">
               <Field label="Fuseau horaire" htmlFor="settings-timezone" hint="Toutes les dates sont affichées en UTC.">
                 <Select
                   id="settings-timezone"
@@ -165,14 +165,14 @@ export function SettingsView() {
                   disabled
                 />
               </Field>
-              <div className="space-y-xs font-mono text-label-sm text-on-surface-variant">
-                <p className="flex items-center justify-between gap-sm">
+              <div className="space-y-1 font-mono text-label-sm text-on-surface-variant">
+                <p className="flex items-center justify-between gap-2">
                   Unités <span className="text-on-surface">° · m · s · W/m²</span>
                 </p>
-                <p className="flex items-center justify-between gap-sm">
+                <p className="flex items-center justify-between gap-2">
                   Densité <span className="text-on-surface">Console haute densité</span>
                 </p>
-                <p className="flex items-center justify-between gap-sm">
+                <p className="flex items-center justify-between gap-2">
                   Bandeau démo <DemoBanner />
                 </p>
               </div>
@@ -181,20 +181,20 @@ export function SettingsView() {
 
           <Card>
             <CardHeader eyebrow="Données" title="Provenance & mode" icon={<Icon name="layers" size={16} />} />
-            <CardBody className="space-y-xs font-mono text-label-sm text-on-surface-variant">
-              <p className="flex justify-between gap-sm">
+            <CardBody className="space-y-1 font-mono text-label-sm text-on-surface-variant">
+              <p className="flex justify-between gap-2">
                 Source <span className="text-on-surface">SPICE / DE440</span>
               </p>
-              <p className="flex justify-between gap-sm">
+              <p className="flex justify-between gap-2">
                 Modèle <span className="text-on-surface">MOLA/LOLA 20 m</span>
               </p>
-              <p className="flex justify-between gap-sm">
+              <p className="flex justify-between gap-2">
                 Version <span className="text-on-surface">2029.1</span>
               </p>
-              <p className="flex justify-between gap-sm">
+              <p className="flex justify-between gap-2">
                 Mode API <span className="text-on-surface">{USE_MOCKS ? "Mocks" : "HTTP"}</span>
               </p>
-              <Link href="/documentation" className="mt-xs block text-primary hover:underline">
+              <Link href="/documentation" className="mt-1 block text-primary hover:underline">
                 Hypothèses et limites →
               </Link>
             </CardBody>
@@ -202,7 +202,7 @@ export function SettingsView() {
 
           <Card>
             <CardHeader eyebrow="Session" title="Authentification" icon={<Icon name="logout" size={16} />} />
-            <CardBody className="space-y-sm">
+            <CardBody className="space-y-2">
               <p className="text-body-sm text-on-surface-variant">
                 {session
                   ? `Connecté en tant que ${session.user.fullName} (${PROFILE_LABELS[session.user.profile]}).`

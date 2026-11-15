@@ -57,16 +57,16 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
   const site = siteQuery.data;
 
   return (
-    <div className="space-y-md">
+    <div className="space-y-3">
       <Card accent={site.dem.status === "FULL" ? "primary" : "partial"}>
-        <CardBody className="flex flex-wrap items-start justify-between gap-md">
+        <CardBody className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="font-mono text-label-md uppercase tracking-widest text-primary">
               {site.designation} · {site.mission}
             </p>
-            <h2 className="mt-xs text-headline-lg font-heading">{site.name}</h2>
-            <p className="mt-xs max-w-2xl text-body-md text-on-surface-variant">{site.description}</p>
-            <div className="mt-sm flex flex-wrap items-center gap-xs">
+            <h2 className="mt-1 text-headline-lg font-heading">{site.name}</h2>
+            <p className="mt-1 max-w-2xl text-body-md text-on-surface-variant">{site.description}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-1">
               <QualityBadge value={site.quality} />
               <Badge tone="primary">{site.category}</Badge>
               <VisibilityBadge value={site.referenceState.sunVisibility} />
@@ -76,7 +76,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
               ))}
             </div>
           </div>
-          <div className="flex flex-wrap gap-sm">
+          <div className="flex flex-wrap gap-2">
             <Link href={`/analyses/nouvelle?siteId=${site.id}`}>
               <Button>
                 <Icon name="spark" size={14} />
@@ -113,14 +113,14 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
       />
 
       <TabsPanel id="synthese" value={tab} panelIdPrefix="site-detail">
-        <div className="grid gap-md lg:grid-cols-[1fr_1fr]">
+        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
           <Card>
             <CardHeader
               eyebrow="Coordonnées géodésiques"
               title="Position MOLA"
               icon={<Icon name="pin" size={16} />}
             />
-            <CardBody className="grid grid-cols-2 gap-md">
+            <CardBody className="grid grid-cols-2 gap-3">
               <Metric label="Latitude" value={site.coordinates.latitudeDeg.toFixed(4)} unit="°" />
               <Metric label="Longitude" value={site.coordinates.longitudeDeg.toFixed(4)} unit="°" />
               <Metric label="Altitude" value={site.coordinates.altitudeM} unit="m" />
@@ -130,7 +130,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                 unit="h"
                 digits={1}
               />
-              <div className="col-span-2 border-t border-outline-variant pt-sm">
+              <div className="col-span-2 border-t border-outline-variant pt-2">
                 <Timestamp value={site.referenceEphemerisUtc} variant="block" />
               </div>
             </CardBody>
@@ -142,24 +142,24 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
               title="Soleil & Terre"
               icon={<Icon name="sun" size={16} />}
             />
-            <CardBody className="space-y-md">
+            <CardBody className="space-y-3">
               <div>
-                <div className="mb-xs flex items-center justify-between">
+                <div className="mb-1 flex items-center justify-between">
                   <span className="font-mono text-label-md uppercase text-on-surface-variant">Soleil</span>
                   <VisibilityBadge value={site.referenceState.sunVisibility} variant="compact" />
                 </div>
-                <div className="grid grid-cols-3 gap-sm">
+                <div className="grid grid-cols-3 gap-2">
                   <Metric label="Azimut" value={site.referenceState.sun.azimuthDeg.toFixed(2)} unit="°" />
                   <Metric label="Élévation" value={formatElevation(site.referenceState.sun.elevationDeg)} />
                   <Metric label="Flux" value={site.referenceState.solarFluxWm2} unit="W/m²" />
                 </div>
               </div>
-              <div className="border-t border-outline-variant pt-sm">
-                <div className="mb-xs flex items-center justify-between">
+              <div className="border-t border-outline-variant pt-2">
+                <div className="mb-1 flex items-center justify-between">
                   <span className="font-mono text-label-md uppercase text-on-surface-variant">Terre</span>
                   <VisibilityBadge value={site.referenceState.earthVisibility} variant="compact" />
                 </div>
-                <div className="grid grid-cols-2 gap-sm">
+                <div className="grid grid-cols-2 gap-2">
                   <Metric label="Azimut" value={site.referenceState.earth.azimuthDeg.toFixed(2)} unit="°" />
                   <Metric label="Élévation" value={formatElevation(site.referenceState.earth.elevationDeg)} />
                 </div>
@@ -168,7 +168,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
           </Card>
         </div>
 
-        <div className="mt-md grid gap-md sm:grid-cols-3">
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
           <Card>
             <CardBody>
               <Metric
@@ -238,7 +238,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                     },
                   ]}
                 />
-                <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+                <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
                   Azimut de l&apos;observateur (0° à 360°) · graticule horizontal calé sur l&apos;ellipsoïde.
                   Sources : {site.horizonProfile.source.source} · {site.horizonProfile.source.version}.
                 </p>
@@ -258,7 +258,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
         <Card>
           <CardHeader eyebrow="Provenance" title="Modèles et versions" icon={<Icon name="layers" size={16} />} />
           <CardBody>
-            <dl className="grid gap-sm text-body-sm sm:grid-cols-2">
+            <dl className="grid gap-2 text-body-sm sm:grid-cols-2">
               {[
                 ["Source éphémérides", site.referenceState.source.source],
                 ["Version des données", site.referenceState.source.version],
@@ -267,7 +267,7 @@ export function SiteDetailView({ siteId }: { siteId: string }) {
                 ["Source DEM", site.dem.source ?? "Indisponible"],
                 ["Qualité de référence", site.quality],
               ].map(([label, value]) => (
-                <div key={label} className="flex items-baseline justify-between gap-sm border-b border-outline-variant/50 pb-xs">
+                <div key={label} className="flex items-baseline justify-between gap-2 border-b border-outline-variant/50 pb-1">
                   <dt className="text-on-surface-variant">{label}</dt>
                   <dd className="font-mono text-label-md text-on-surface">{value}</dd>
                 </div>

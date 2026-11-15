@@ -68,13 +68,13 @@ export function ScenariosView() {
   }
 
   return (
-    <div className="space-y-md">
+    <div className="space-y-3">
       <Card>
-        <CardBody className="grid gap-sm md:grid-cols-[1.6fr_1fr_auto] md:items-end">
+        <CardBody className="grid gap-2 md:grid-cols-[1.6fr_1fr_auto] md:items-end">
           <div>
             <label
               htmlFor="scenario-search"
-              className="mb-xs block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
+              className="mb-1 block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
             >
               Rechercher
             </label>
@@ -89,7 +89,7 @@ export function ScenariosView() {
           <div>
             <label
               htmlFor="scenario-status"
-              className="mb-xs block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
+              className="mb-1 block font-mono text-label-md uppercase tracking-wider text-on-surface-variant"
             >
               Statut
             </label>
@@ -107,7 +107,7 @@ export function ScenariosView() {
             </Button>
           </Link>
         </CardBody>
-        <p className="border-t border-outline-variant px-md py-xs font-mono text-label-sm text-on-surface-variant" role="status">
+        <p className="border-t border-outline-variant px-3 py-1 font-mono text-label-sm text-on-surface-variant" role="status">
           {filtered.length} scénario(s) sur {scenarios.length}
         </p>
       </Card>
@@ -124,7 +124,7 @@ export function ScenariosView() {
           }
         />
       ) : (
-        <div className="grid gap-md lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           {filtered.map((scenario) => {
             const lastRun = runs.find((run) => run.id === scenario.lastRunId);
             return (
@@ -135,8 +135,8 @@ export function ScenariosView() {
                   icon={<Icon name="spark" size={16} />}
                   actions={<QualityBadge value={scenario.quality} />}
                 />
-                <CardBody className="space-y-sm">
-                  <div className="flex flex-wrap items-center gap-xs">
+                <CardBody className="space-y-2">
+                  <div className="flex flex-wrap items-center gap-1">
                     {lastRun ? <RunStatusBadge status={lastRun.status} /> : <Badge tone="neutral">SANS RUN</Badge>}
                     <Badge tone="neutral">{scenario.window.steps} pas</Badge>
                     <Badge tone="neutral">{scenario.window.stepSeconds / 60} min</Badge>
@@ -144,30 +144,30 @@ export function ScenariosView() {
                       <Badge key={tag} tone="primary">{tag}</Badge>
                     ))}
                   </div>
-                  <dl className="grid gap-xs sm:grid-cols-2">
-                    <div className="flex justify-between gap-sm border-b border-outline-variant/50 pb-xs">
+                  <dl className="grid gap-1 sm:grid-cols-2">
+                    <div className="flex justify-between gap-2 border-b border-outline-variant/50 pb-1">
                       <dt className="text-body-sm text-on-surface-variant">Début</dt>
                       <dd><Timestamp value={scenario.window.startUtc} variant="compact" /></dd>
                     </div>
-                    <div className="flex justify-between gap-sm border-b border-outline-variant/50 pb-xs">
+                    <div className="flex justify-between gap-2 border-b border-outline-variant/50 pb-1">
                       <dt className="text-body-sm text-on-surface-variant">Fin</dt>
                       <dd><Timestamp value={scenario.window.endUtc} variant="compact" /></dd>
                     </div>
-                    <div className="flex justify-between gap-sm border-b border-outline-variant/50 pb-xs">
+                    <div className="flex justify-between gap-2 border-b border-outline-variant/50 pb-1">
                       <dt className="text-body-sm text-on-surface-variant">Observateur</dt>
                       <dd className="font-mono text-label-sm">{scenario.observer.name}</dd>
                     </div>
-                    <div className="flex justify-between gap-sm border-b border-outline-variant/50 pb-xs">
+                    <div className="flex justify-between gap-2 border-b border-outline-variant/50 pb-1">
                       <dt className="text-body-sm text-on-surface-variant">Mis à jour</dt>
                       <dd><Timestamp value={scenario.updatedAt} variant="compact" /></dd>
                     </div>
                   </dl>
                   {lastRun?.error ? (
-                    <p className="rounded border border-error/40 bg-error-container/20 px-sm py-xs text-body-sm text-error">
+                    <p className="rounded border border-error/40 bg-error-container/20 px-2 py-1 text-body-sm text-error">
                       {lastRun.error.message}
                     </p>
                   ) : null}
-                  <div className="flex flex-wrap gap-sm border-t border-outline-variant pt-sm">
+                  <div className="flex flex-wrap gap-2 border-t border-outline-variant pt-2">
                     <Link href={`/scenarios/${scenario.id}`}>
                       <Button size="sm" variant="secondary">Détail</Button>
                     </Link>

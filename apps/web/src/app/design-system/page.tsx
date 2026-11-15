@@ -63,41 +63,41 @@ const typeScale = [
 
 export default function DesignSystemPage() {
   return (
-    <main className="mx-auto max-w-5xl px-margin-mobile py-xl md:px-margin">
+    <main className="mx-auto max-w-5xl px-margin-mobile py-8 md:px-margin">
       <p className="font-mono text-label-md uppercase tracking-widest text-primary">
         ARTEMIS PULSE / design system
       </p>
-      <h1 className="mt-sm text-headline-xl font-heading">Tokens & composants de base</h1>
-      <p className="mt-sm max-w-2xl text-body-md text-on-surface-variant">
+      <h1 className="mt-2 text-headline-xl font-heading">Tokens & composants de base</h1>
+      <p className="mt-2 max-w-2xl text-body-md text-on-surface-variant">
         Source unique : frontmatter de DESIGN.md (couleurs, typographie, rayons,
         espacements) complété par la sémantique de visibilité et de qualité de calcul.
         Hiérarchie par couches de surface et bordures de 1 px — aucune ombre floue.
       </p>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Surfaces</h2>
-        <div className="mt-md grid grid-cols-2 gap-md md:grid-cols-3">
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
           {surfaces.map((s) => (
             <div
               key={s.name}
-              className="rounded border border-outline-variant p-md"
+              className="rounded border border-outline-variant p-3"
               style={{ backgroundColor: s.value }}
             >
               <p className="font-mono text-label-md text-on-surface">{s.name}</p>
-              <p className="mt-xs font-mono text-label-sm text-on-surface-variant">{s.value}</p>
+              <p className="mt-1 font-mono text-label-sm text-on-surface-variant">{s.value}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Accents</h2>
-        <div className="mt-md flex flex-wrap gap-md">
+        <div className="mt-3 flex flex-wrap gap-3">
           {accents.map((c) => (
-            <div key={c.name} className="rounded border border-outline-variant p-md">
+            <div key={c.name} className="rounded border border-outline-variant p-3">
               <span
                 aria-hidden
-                className="mb-sm block h-10 w-24 rounded-sm"
+                className="mb-2 block h-10 w-24 rounded-sm"
                 style={{ backgroundColor: c.value }}
               />
               <p className="font-mono text-label-md">{c.name}</p>
@@ -107,14 +107,14 @@ export default function DesignSystemPage() {
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Sémantique de visibilité</h2>
-        <div className="mt-md grid grid-cols-2 gap-md md:grid-cols-4">
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
           {semantic.map((c) => (
-            <div key={c.name} className="rounded border border-outline-variant p-md">
+            <div key={c.name} className="rounded border border-outline-variant p-3">
               <span
                 aria-hidden
-                className="mb-sm block h-2 w-full rounded-sm"
+                className="mb-2 block h-2 w-full rounded-sm"
                 style={{ backgroundColor: c.value }}
               />
               <p className="font-mono text-label-md">{c.name}</p>
@@ -124,11 +124,11 @@ export default function DesignSystemPage() {
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Échelle typographique</h2>
-        <ul className="mt-md divide-y divide-outline-variant rounded border border-outline-variant">
+        <ul className="mt-3 divide-y divide-outline-variant rounded border border-outline-variant">
           {typeScale.map((t) => (
-            <li key={t.label} className="flex flex-wrap items-baseline justify-between gap-sm p-md">
+            <li key={t.label} className="flex flex-wrap items-baseline justify-between gap-2 p-3">
               <span className={t.className}>142.35°</span>
               <span className="font-mono text-label-sm text-on-surface-variant">{t.label}</span>
             </li>
@@ -136,9 +136,9 @@ export default function DesignSystemPage() {
         </ul>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Rayons & espacements</h2>
-        <div className="mt-md flex flex-wrap items-end gap-md">
+        <div className="mt-3 flex flex-wrap items-end gap-3">
           {[
             ["sm", "0.125rem"],
             ["DEFAULT", "0.25rem"],
@@ -146,9 +146,9 @@ export default function DesignSystemPage() {
             ["lg", "0.5rem"],
             ["xl", "0.75rem"],
           ].map(([name, value]) => (
-            <div key={name} className="rounded border border-outline-variant p-md">
+            <div key={name} className="rounded border border-outline-variant p-3">
               <div
-                className="mb-sm h-12 w-12 border border-primary/50 bg-primary/10"
+                className="mb-2 h-12 w-12 border border-primary/50 bg-primary/10"
                 style={{ borderRadius: value }}
               />
               <p className="font-mono text-label-sm">{name}</p>
@@ -156,14 +156,14 @@ export default function DesignSystemPage() {
             </div>
           ))}
         </div>
-        <p className="mt-md text-body-sm text-on-surface-variant">
+        <p className="mt-3 text-body-sm text-on-surface-variant">
           Pas de base 4 px. Gouttière 16 px, marge 24 px desktop / 12 px mobile.
         </p>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Boutons</h2>
-        <div className="mt-md flex flex-wrap items-center gap-sm">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <Button>Lancer l&apos;analyse</Button>
           <Button variant="secondary">Hypothèses et limites</Button>
           <Button variant="ghost">Annuler</Button>
@@ -172,34 +172,34 @@ export default function DesignSystemPage() {
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Badges de visibilité</h2>
-        <div className="mt-md flex flex-wrap gap-sm">
+        <div className="mt-3 flex flex-wrap gap-2">
           <VisibilityBadge value="FULL" />
           <VisibilityBadge value="PARTIAL" />
           <VisibilityBadge value="OCCULTED" />
           <VisibilityBadge value="UNKNOWN" />
         </div>
-        <h2 className="mt-lg text-headline-sm font-heading">Badges de qualité</h2>
-        <div className="mt-md flex flex-wrap gap-sm">
+        <h2 className="mt-5 text-headline-sm font-heading">Badges de qualité</h2>
+        <div className="mt-3 flex flex-wrap gap-2">
           <QualityBadge value="VALIDATED" />
           <QualityBadge value="ESTIMATED" />
           <QualityBadge value="LOW" />
           <QualityBadge value="UNCOMPUTABLE" />
         </div>
-        <div className="mt-md flex flex-wrap gap-sm">
+        <div className="mt-3 flex flex-wrap gap-2">
           <Badge tone="primary">RIDGE</Badge>
           <Badge tone="neutral">MOLA</Badge>
           <Badge tone="success">T-0 NOMINAL</Badge>
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Cartouches & métriques</h2>
-        <div className="mt-md grid gap-md md:grid-cols-3">
+        <div className="mt-3 grid gap-3 md:grid-cols-3">
           <Card>
             <CardHeader eyebrow="Éphéméride #01" title="Visibilité du Soleil" />
-            <CardBody className="grid grid-cols-2 gap-md">
+            <CardBody className="grid grid-cols-2 gap-3">
               <Metric label="Azimut" value="142.35" unit="°" hint="S-SE" />
               <Metric label="Élévation" value="+1.84" unit="°" hint="Rasant" />
               <Metric label="Flux solaire" value={1361} unit="W/m²" />
@@ -208,7 +208,7 @@ export default function DesignSystemPage() {
           </Card>
           <Card>
             <CardHeader title="Horodatage" eyebrow="UTC" />
-            <CardBody className="space-y-sm">
+            <CardBody className="space-y-2">
               <Timestamp value="2026-11-14T08:42:00Z" variant="block" />
               <Timestamp value="2026-11-14T08:42:00Z" />
               <p className="text-body-sm text-on-surface-variant">
@@ -218,7 +218,7 @@ export default function DesignSystemPage() {
           </Card>
           <Card>
             <CardHeader title="Champs" eyebrow="Formulaire" />
-            <CardBody className="space-y-md">
+            <CardBody className="space-y-3">
               <Field label="Latitude" htmlFor="demo-lat" required hint="Entre -90° et +90°">
                 <Input id="demo-lat" defaultValue="-89.7820" inputMode="decimal" />
               </Field>
@@ -236,14 +236,14 @@ export default function DesignSystemPage() {
         </div>
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Onglets & modale</h2>
-        <div className="mt-md">
+        <div className="mt-3">
           <InteractiveShowcase />
         </div>
       </section>
 
-      <section className="mt-xl space-y-md">
+      <section className="mt-8 space-y-3">
         <h2 className="text-headline-sm font-heading">États</h2>
         <LoadingState rows={2} />
         <EmptyState
@@ -258,9 +258,9 @@ export default function DesignSystemPage() {
         />
       </section>
 
-      <section className="mt-xl">
+      <section className="mt-8">
         <h2 className="text-headline-sm font-heading">Bannière d&apos;hypothèses</h2>
-        <div className="mt-md">
+        <div className="mt-3">
           <AssumptionBanner
             model="MOLA/LOLA DEM 20 m, Éphémérides DE440, réfraction nulle"
             source="SPICE / MOON_PA_DE440"

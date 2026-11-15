@@ -68,7 +68,7 @@ export function Tabs({
             onClick={() => onChange(item.id)}
             onKeyDown={(event) => handleKeyDown(event, index)}
             className={cn(
-              "-mb-px inline-flex items-center gap-xs border-b-2 px-md py-sm font-mono text-label-md uppercase tracking-wider transition-colors",
+              "-mb-px inline-flex items-center gap-1 border-b-2 px-3 py-2 font-mono text-label-md uppercase tracking-wider transition-colors",
               selected
                 ? "border-primary text-primary"
                 : "border-transparent text-on-surface-variant hover:border-outline hover:text-on-surface",

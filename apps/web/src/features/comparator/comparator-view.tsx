@@ -111,8 +111,8 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
     .reduce((sum, criterion) => sum + criterion.weight, 0);
 
   return (
-    <div className="space-y-md">
-      <div className="grid gap-md xl:grid-cols-[1fr_320px]">
+    <div className="space-y-3">
+      <div className="grid gap-3 xl:grid-cols-[1fr_320px]">
         <Card>
           <CardHeader
             eyebrow="Sélection"
@@ -121,7 +121,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
             actions={<Badge tone={effectiveIds.length >= 2 ? "success" : "warning"}>{effectiveIds.length} sélectionnés</Badge>}
           />
           <CardBody>
-            <ul className="grid gap-xs md:grid-cols-2">
+            <ul className="grid gap-1 md:grid-cols-2">
               {scenarios.map((scenario) => {
                 const active = effectiveIds.includes(scenario.id);
                 const disabled = !scenario.lastRunId;
@@ -129,7 +129,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
                   <li key={scenario.id}>
                     <label
                       className={cn(
-                        "flex cursor-pointer items-start gap-sm rounded border px-sm py-xs",
+                        "flex cursor-pointer items-start gap-2 rounded border px-2 py-1",
                         active
                           ? "border-primary/60 bg-primary/10"
                           : "border-grid hover:border-outline-variant",
@@ -144,7 +144,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
                         className="mt-1 accent-primary"
                       />
                       <span className="min-w-0 flex-1">
-                        <span className="flex flex-wrap items-center gap-xs">
+                        <span className="flex flex-wrap items-center gap-1">
                           <span className="text-body-md">{scenario.name}</span>
                           <QualityBadge value={scenario.quality} />
                         </span>
@@ -163,7 +163,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
               })}
             </ul>
             {effectiveIds.length < 2 ? (
-              <p className="mt-sm text-body-sm text-quality-low">
+              <p className="mt-2 text-body-sm text-quality-low">
                 Sélectionnez au moins deux scénarios disposant d&apos;un run terminé.
               </p>
             ) : null}
@@ -176,7 +176,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
             title="Critères pondérables"
             icon={<Icon name="target" size={16} />}
             actions={
-              <label className="flex items-center gap-xs font-mono text-label-sm text-on-surface-variant">
+              <label className="flex items-center gap-1 font-mono text-label-sm text-on-surface-variant">
                 <input
                   type="checkbox"
                   checked={scoreEnabled}
@@ -187,13 +187,13 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
               </label>
             }
           />
-          <CardBody className="space-y-sm">
+          <CardBody className="space-y-2">
             {criteria.map((criterion) => (
-              <div key={criterion.key} className="space-y-xs">
-                <div className="flex items-center justify-between gap-xs">
+              <div key={criterion.key} className="space-y-1">
+                <div className="flex items-center justify-between gap-1">
                   <label
                     htmlFor={`weight-${criterion.key}`}
-                    className="flex items-center gap-xs text-body-sm"
+                    className="flex items-center gap-1 text-body-sm"
                   >
                     <input
                       type="checkbox"
@@ -231,7 +231,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
                 />
               </div>
             ))}
-            <p className="border-t border-outline-variant pt-xs font-mono text-label-sm text-on-surface-variant">
+            <p className="border-t border-outline-variant pt-1 font-mono text-label-sm text-on-surface-variant">
               Total des poids actifs : {Math.round(totalWeight * 100)} % (normalisé par l&apos;API).
             </p>
             {!scoreEnabled ? (
@@ -273,7 +273,7 @@ export function ComparatorView({ initialScenarioIds = [] }: { initialScenarioIds
 
           <CurvesCard scenarios={selectedScenarios} series={series} commonWindow={comparison.commonWindow} />
 
-          <div className="grid gap-md lg:grid-cols-2">
+          <div className="grid gap-3 lg:grid-cols-2">
             <ConstraintsCard comparison={comparison} critical />
             <ConstraintsCard comparison={comparison} critical={false} />
           </div>
@@ -308,17 +308,17 @@ function ComparisonTable({ comparison }: { comparison: Comparison }) {
         icon={<Icon name="chart" size={16} />}
         actions={<Timestamp value={comparison.createdAt} />}
       />
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <table className="w-full min-w-[720px] border-collapse text-left">
           <caption className="sr-only">Comparaison des scénarios sélectionnés</caption>
           <thead>
             <tr className="border-b border-outline-variant">
-              <th scope="col" className="px-md py-xs font-mono text-label-sm uppercase tracking-wider text-on-surface-variant">
+              <th scope="col" className="px-3 py-1 font-mono text-label-sm uppercase tracking-wider text-on-surface-variant">
                 Métrique
               </th>
               {comparison.results.map((result, index) => (
-                <th key={result.scenarioId} scope="col" className="px-md py-xs align-top">
-                  <span className="flex items-center gap-xs">
+                <th key={result.scenarioId} scope="col" className="px-3 py-1 align-top">
+                  <span className="flex items-center gap-1">
                     <span
                       aria-hidden
                       className="size-2 rounded-full"
@@ -329,7 +329,7 @@ function ComparisonTable({ comparison }: { comparison: Comparison }) {
                   <span className="block font-mono text-label-sm text-on-surface-variant">
                     {result.scenarioName}
                   </span>
-                  <span className="mt-xs flex flex-wrap gap-xs">
+                  <span className="mt-1 flex flex-wrap gap-1">
                     <QualityBadge value={result.quality} />
                   </span>
                 </th>
@@ -339,23 +339,23 @@ function ComparisonTable({ comparison }: { comparison: Comparison }) {
           <tbody>
             {rows.map((row) => (
               <tr key={row.label} className="border-b border-outline-variant/50">
-                <th scope="row" className="px-md py-xs text-left text-body-sm font-normal text-on-surface-variant">
+                <th scope="row" className="px-3 py-1 text-left text-body-sm font-normal text-on-surface-variant">
                   {row.label}
                 </th>
                 {comparison.results.map((result) => (
-                  <td key={result.scenarioId} className="px-md py-xs font-mono text-label-md tabular text-on-surface">
+                  <td key={result.scenarioId} className="px-3 py-1 font-mono text-label-md tabular text-on-surface">
                     {row.render(result)}
                   </td>
                 ))}
               </tr>
             ))}
             <tr className="border-b border-outline-variant/50">
-              <th scope="row" className="px-md py-xs text-left text-body-sm font-normal text-on-surface-variant">
+              <th scope="row" className="px-3 py-1 text-left text-body-sm font-normal text-on-surface-variant">
                 Visibilité Soleil / Terre
               </th>
               {comparison.results.map((result) => (
-                <td key={result.scenarioId} className="px-md py-xs">
-                  <div className="flex flex-wrap gap-xs">
+                <td key={result.scenarioId} className="px-3 py-1">
+                  <div className="flex flex-wrap gap-1">
                     <VisibilityBadge value={result.sunVisibility} variant="compact" />
                     <VisibilityBadge value={result.earthVisibility} variant="compact" />
                   </div>
@@ -364,11 +364,11 @@ function ComparisonTable({ comparison }: { comparison: Comparison }) {
             </tr>
             {comparison.scoreEnabled ? (
               <tr>
-                <th scope="row" className="px-md py-xs text-left text-body-sm text-on-surface">
+                <th scope="row" className="px-3 py-1 text-left text-body-sm text-on-surface">
                   Score pondéré <span className="text-on-surface-variant">(optionnel)</span>
                 </th>
                 {comparison.results.map((result) => (
-                  <td key={result.scenarioId} className="px-md py-xs">
+                  <td key={result.scenarioId} className="px-3 py-1">
                     <span className="font-mono text-data-display tabular text-tertiary">
                       {result.score ?? "—"}
                     </span>
@@ -393,6 +393,12 @@ function CurvesCard({
   series: TimeSeries[];
   commonWindow: { startUtc: string; endUtc: string };
 }) {
+  const axisMode: "time" | "date" =
+    new Date(commonWindow.endUtc).getTime() - new Date(commonWindow.startUtc).getTime() >
+    30 * 3_600_000
+      ? "date"
+      : "time";
+
   const chartData = useMemo(() => {
     if (series.length === 0) return [];
     const maxPoints = Math.max(...series.map((item) => item.points.length));
@@ -436,7 +442,7 @@ function CurvesCard({
               <CartesianGrid stroke="#274060" strokeOpacity={0.4} vertical={false} />
               <XAxis
                 dataKey="atUtc"
-                tickFormatter={(value: string) => formatAxisTick(String(value), "time")}
+                tickFormatter={(value: string) => formatAxisTick(String(value), axisMode)}
                 stroke="#869397"
                 tick={{ fill: "#bcc9cd", fontSize: 12 }}
                 minTickGap={48}
@@ -482,7 +488,7 @@ function CurvesCard({
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+        <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
           Fenêtre commune : {formatUtc(commonWindow.startUtc)} → {formatUtc(commonWindow.endUtc)}.
           Les séries sont alignées sur le début de la fenêtre commune ; les points hors fenêtre ne
           sont pas extrapolés.
@@ -506,27 +512,27 @@ function ConstraintsCard({ comparison, critical }: { comparison: Comparison; cri
         {constraints.length === 0 ? (
           <p className="text-body-sm text-on-surface-variant">Aucune contrainte de ce type.</p>
         ) : (
-          <div className="space-y-sm">
+          <div className="space-y-2">
             {constraints.map((constraint) => (
-              <div key={constraint.key} className="space-y-xs">
-                <div className="flex flex-wrap items-center justify-between gap-xs">
+              <div key={constraint.key} className="space-y-1">
+                <div className="flex flex-wrap items-center justify-between gap-1">
                   <p className="text-body-sm text-on-surface">{constraint.label}</p>
                   <span className="font-mono text-label-sm text-on-surface-variant">
                     seuil {constraint.threshold}
                   </span>
                 </div>
-                <ul className="grid gap-xs sm:grid-cols-2">
+                <ul className="grid gap-1 sm:grid-cols-2">
                   {comparison.results.map((result) => {
                     const value = result.constraints.find((item) => item.key === constraint.key);
                     return (
                       <li
                         key={result.scenarioId}
-                        className="flex items-center justify-between gap-xs rounded border border-outline-variant/60 px-xs py-0.5"
+                        className="flex items-center justify-between gap-1 rounded border border-outline-variant/60 px-1 py-0.5"
                       >
                         <span className="truncate text-body-sm text-on-surface-variant">
                           {result.siteName}
                         </span>
-                        <span className="flex items-center gap-xs font-mono text-label-sm">
+                        <span className="flex items-center gap-1 font-mono text-label-sm">
                           <Icon
                             name={value?.passed ? "check-circle" : "minus-circle"}
                             size={13}

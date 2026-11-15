@@ -36,7 +36,7 @@ function ProgressCard({ run }: { run: Run }) {
         icon={<Icon name="spark" size={16} />}
         actions={<RunStatusBadge status={run.status} />}
       />
-      <CardBody className="space-y-sm">
+      <CardBody className="space-y-2">
         <div
           className="h-2 w-full overflow-hidden rounded-sm bg-container-highest"
           role="progressbar"
@@ -50,7 +50,7 @@ function ProgressCard({ run }: { run: Run }) {
             style={{ width: `${run.progressPercent}%` }}
           />
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-sm font-mono text-label-md text-on-surface-variant">
+        <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-label-md text-on-surface-variant">
           <span>{run.progressPercent} %</span>
           {run.summary ? (
             <span>
@@ -103,12 +103,12 @@ export function AnalysisView({ runId }: { runId: string }) {
 
   if (run.status === "QUEUED" || run.status === "RUNNING") {
     return (
-      <div className="space-y-md">
+      <div className="space-y-3">
         <ProgressCard run={run} />
         {scenario ? (
           <Card>
             <CardHeader eyebrow="Scénario" title={scenario.name} icon={<Icon name="file" size={16} />} />
-            <CardBody className="grid gap-md sm:grid-cols-3">
+            <CardBody className="grid gap-3 sm:grid-cols-3">
               <Metric label="Site" value={scenario.siteName} />
               <Metric label="Début UTC" value={formatUtc(scenario.window.startUtc)} />
               <Metric label="Pas de calcul" value={scenario.window.steps} />
@@ -127,7 +127,7 @@ export function AnalysisView({ runId }: { runId: string }) {
 
   if (run.status === "FAILED") {
     return (
-      <div className="space-y-md">
+      <div className="space-y-3">
         <ErrorState
           title="Calcul interrompu"
           message={run.error?.message ?? "Le run a échoué sans détail complémentaire."}
@@ -135,12 +135,12 @@ export function AnalysisView({ runId }: { runId: string }) {
           requestId={run.id}
         />
         <Card>
-          <CardBody className="flex flex-wrap items-center justify-between gap-sm">
+          <CardBody className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-body-sm text-on-surface-variant">
               Vérifiez la couverture DEM du site ou réduisez la fenêtre de calcul, puis relancez un
               scénario.
             </p>
-            <div className="flex gap-sm">
+            <div className="flex gap-2">
               <Link href={`/scenarios/${run.scenarioId}`}>
                 <Button variant="secondary" size="sm">Voir le scénario</Button>
               </Link>
@@ -176,22 +176,22 @@ export function AnalysisView({ runId }: { runId: string }) {
   const allWindows = windows;
 
   return (
-    <div className="space-y-md">
+    <div className="space-y-3">
       <Card accent="primary">
-        <CardBody className="flex flex-wrap items-start justify-between gap-md">
+        <CardBody className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="font-mono text-label-md uppercase tracking-widest text-primary">
               Run {run.id} · scénario {scenario?.id ?? run.scenarioId}
             </p>
-            <h2 className="mt-xs text-headline-lg font-heading">
+            <h2 className="mt-1 text-headline-lg font-heading">
               {scenario?.name ?? "Scénario"}
             </h2>
-            <p className="mt-xs font-mono text-label-md text-on-surface-variant">
-              {scenario?.siteName ?? site?.name ?? "Site"} · {site?.designation} · lat{" "}
-              {site?.coordinates.latitudeDeg.toFixed(4)}° · lon{" "}
-              {site?.coordinates.longitudeDeg.toFixed(4)}° · alt {site?.coordinates.altitudeM} m
+            <p className="mt-1 font-mono text-label-md text-on-surface-variant">
+              {site
+                ? `${site.name} · ${site.designation} · lat ${site.coordinates.latitudeDeg.toFixed(4)}° · lon ${site.coordinates.longitudeDeg.toFixed(4)}° · alt ${site.coordinates.altitudeM} m`
+                : scenario?.siteName ?? "Site en cours de chargement"}
             </p>
-            <div className="mt-sm flex flex-wrap items-center gap-xs">
+            <div className="mt-2 flex flex-wrap items-center gap-1">
               <RunStatusBadge status={run.status} />
               <QualityBadge value={run.quality} />
               <Badge tone="neutral">{series.points.length} points</Badge>
@@ -199,7 +199,7 @@ export function AnalysisView({ runId }: { runId: string }) {
               <Timestamp value={run.finishedAtUtc} />
             </div>
           </div>
-          <div className="flex flex-wrap gap-sm">
+          <div className="flex flex-wrap gap-2">
             <Link href={`/comparateur?scenarios=${scenario?.id ?? ""}`}>
               <Button variant="secondary" size="sm">
                 <Icon name="sliders" size={13} />
@@ -216,7 +216,7 @@ export function AnalysisView({ runId }: { runId: string }) {
         </CardBody>
       </Card>
 
-      <div className="grid gap-md sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Card><CardBody><Metric label="Illumination cumulée" value={formatDuration(run.summary?.sunVisibleSeconds ?? 0)} icon={<Icon name="sun" size={13} />} /></CardBody></Card>
         <Card><CardBody><Metric label="Terre visible cumulée" value={formatDuration(run.summary?.earthVisibleSeconds ?? 0)} icon={<Icon name="earth" size={13} />} /></CardBody></Card>
         <Card><CardBody><Metric label="Nuit continue max." value={formatDuration(run.summary?.longestNightSeconds ?? 0)} /></CardBody></Card>
@@ -237,8 +237,8 @@ export function AnalysisView({ runId }: { runId: string }) {
       />
 
       <TabsPanel id="combine" value={tab} panelIdPrefix="analysis">
-        <div className="grid gap-md lg:grid-cols-[1fr_1fr]">
-          <div className="space-y-md">
+        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
+          <div className="space-y-3">
             <SunCard point={point} />
             <EarthCard point={point} />
           </div>
@@ -255,7 +255,7 @@ export function AnalysisView({ runId }: { runId: string }) {
                 earth={point.earth}
                 horizonElevationDeg={point.horizonElevationDeg}
               />
-              <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+              <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
                 Position exacte au curseur de la chronologie. Affichage schématique.
               </p>
             </CardBody>
@@ -264,7 +264,7 @@ export function AnalysisView({ runId }: { runId: string }) {
       </TabsPanel>
 
       <TabsPanel id="soleil" value={tab} panelIdPrefix="analysis">
-        <div className="grid gap-md lg:grid-cols-[1fr_1fr]">
+        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
           <SunCard point={point} />
           <Card>
             <CardHeader title="Fenêtres d'illumination" eyebrow="Soleil" icon={<Icon name="sun" size={16} />} />
@@ -276,7 +276,7 @@ export function AnalysisView({ runId }: { runId: string }) {
       </TabsPanel>
 
       <TabsPanel id="terre" value={tab} panelIdPrefix="analysis">
-        <div className="grid gap-md lg:grid-cols-[1fr_1fr]">
+        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
           <EarthCard point={point} />
           <Card>
             <CardHeader title="Fenêtres de visibilité terrestre" eyebrow="Terre" icon={<Icon name="earth" size={16} />} />
@@ -309,7 +309,7 @@ export function AnalysisView({ runId }: { runId: string }) {
                 Profil d&apos;horizon indisponible : couverture DEM insuffisante pour ce site.
               </p>
             )}
-            <p className="mt-xs font-mono text-label-sm text-on-surface-variant">
+            <p className="mt-1 font-mono text-label-sm text-on-surface-variant">
               Azimut observateur 0° à 360° · masque de crête lunaire échantillonné par ray-tracing.
             </p>
           </CardBody>
@@ -342,8 +342,8 @@ function SunCard({ point }: { point: TimeSeries["points"][number] }) {
         icon={<Icon name="sun" size={16} />}
         actions={<VisibilityBadge value={point.sun.visibility} variant="compact" />}
       />
-      <CardBody className="space-y-sm">
-        <div className="grid grid-cols-2 gap-md">
+      <CardBody className="space-y-2">
+        <div className="grid grid-cols-2 gap-3">
           <Metric label="Azimut (0–360°)" value={point.sun.azimuthDeg.toFixed(2)} unit="°" />
           <Metric label="Élévation locale" value={formatElevation(point.sun.elevationDeg)} hint="Signée" />
         </div>
@@ -352,7 +352,7 @@ function SunCard({ point }: { point: TimeSeries["points"][number] }) {
             <span>Flux solaire incident</span>
             <span className="tabular">{point.solarFluxWm2} W/m²</span>
           </div>
-          <div className="mt-xs flex h-2 gap-px overflow-hidden rounded-sm bg-container-highest">
+          <div className="mt-1 flex h-2 gap-px overflow-hidden rounded-sm bg-container-highest">
             {Array.from({ length: 24 }).map((_, index) => (
               <span
                 key={index}
@@ -365,11 +365,11 @@ function SunCard({ point }: { point: TimeSeries["points"][number] }) {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-sm border-t border-outline-variant pt-sm">
+        <div className="grid grid-cols-2 gap-2 border-t border-outline-variant pt-2">
           <Metric label="Horizon local" value={formatElevation(point.horizonElevationDeg)} />
           <Metric label="Horodatage" value={formatUtc(point.atUtc)} />
         </div>
-        <p className="flex items-start gap-xs rounded border border-quality-low/30 bg-quality-low-soft/10 px-sm py-xs text-body-sm text-quality-low">
+        <p className="flex items-start gap-1 rounded border border-quality-low/30 bg-quality-low-soft/10 px-2 py-1 text-body-sm text-quality-low">
           <Icon name="alert-triangle" size={13} className="mt-0.5 shrink-0" />
           Soleil visible ≠ énergie produite : le rendement dépend de l&apos;incidence et de
           l&apos;obstruction locale.
@@ -388,12 +388,12 @@ function EarthCard({ point }: { point: TimeSeries["points"][number] }) {
         icon={<Icon name="earth" size={16} />}
         actions={<VisibilityBadge value={point.earth.visibility} variant="compact" />}
       />
-      <CardBody className="space-y-sm">
-        <div className="grid grid-cols-2 gap-md">
+      <CardBody className="space-y-2">
+        <div className="grid grid-cols-2 gap-3">
           <Metric label="Azimut (0–360°)" value={point.earth.azimuthDeg.toFixed(2)} unit="°" />
           <Metric label="Élévation" value={formatElevation(point.earth.elevationDeg)} hint="Signée" />
         </div>
-        <div className="border-t border-outline-variant pt-sm">
+        <div className="border-t border-outline-variant pt-2">
           <p className="text-body-sm text-on-surface-variant">
             Terre visible = visibilité géométrique, pas une garantie de liaison radio. Les masques
             topographiques locaux et les effets de diffusion ne sont pas modélisés dans le budget de
@@ -412,7 +412,7 @@ function WindowList({ windows }: { windows: VisibilityWindow[] }) {
   return (
     <ul className="divide-y divide-outline-variant/60 font-mono text-label-md">
       {windows.map((window) => (
-        <li key={window.id} className="flex flex-wrap items-center justify-between gap-xs py-xs">
+        <li key={window.id} className="flex flex-wrap items-center justify-between gap-1 py-1">
           <Timestamp value={window.startsAtUtc} variant="compact" />
           <Timestamp value={window.endsAtUtc} variant="compact" />
           <span className="tabular text-on-surface-variant">{formatDuration(window.durationSeconds)}</span>

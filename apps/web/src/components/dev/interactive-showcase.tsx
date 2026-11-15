@@ -8,8 +8,8 @@ export function InteractiveShowcase() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="grid gap-md md:grid-cols-2">
-      <div className="rounded border border-outline-variant bg-container p-md">
+    <div className="grid gap-3 md:grid-cols-2">
+      <div className="rounded border border-outline-variant bg-container p-3">
         <Tabs
           ariaLabel="Démonstration d'onglets"
           items={[
@@ -20,17 +20,17 @@ export function InteractiveShowcase() {
           value={tab}
           onChange={setTab}
         />
-        <TabsPanel id="soleil" value={tab} className="mt-sm text-body-md">
+        <TabsPanel id="soleil" value={tab} className="mt-2 text-body-md">
           Azimut solaire / élévation locale / flux incident.
         </TabsPanel>
-        <TabsPanel id="terre" value={tab} className="mt-sm text-body-md">
+        <TabsPanel id="terre" value={tab} className="mt-2 text-body-md">
           Visibilité géométrique de la Terre.
         </TabsPanel>
-        <TabsPanel id="horizon" value={tab} className="mt-sm text-body-md">
+        <TabsPanel id="horizon" value={tab} className="mt-2 text-body-md">
           Profil d&apos;horizon topographique 0° à 360°.
         </TabsPanel>
       </div>
-      <div className="flex flex-col items-start gap-sm rounded border border-outline-variant bg-container p-md">
+      <div className="flex flex-col items-start gap-2 rounded border border-outline-variant bg-container p-3">
         <p className="font-mono text-label-md uppercase text-on-surface-variant">Modale</p>
         <Button variant="secondary" onClick={() => setOpen(true)}>
           Ouvrir la modale

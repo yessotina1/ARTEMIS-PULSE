@@ -669,7 +669,7 @@ export function buildSeries(scenario: Scenario): TimeSeries {
   const stepMs = scenario.window.stepSeconds * 1000;
   const points: SeriesPoint[] = [];
 
-  for (let time = start; time <= end; time += stepMs) {
+  for (let time = start; time < end; time += stepMs) {
     const hours = (time - start) / HOUR;
     const phase = hours / 14;
 
